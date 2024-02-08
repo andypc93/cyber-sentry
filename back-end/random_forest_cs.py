@@ -204,10 +204,47 @@ def evaluate_classification(model, name, X_train, X_test, y_train, y_test):
 
 #======================================================================================
 
+# Initialize the RandomForestClassifier with various parameters
+rf = RandomForestClassifier(
+    n_estimators=150,        # Number of trees in the forest.
+    criterion='gini',        # The function to measure the quality of a split. 'gini' for Gini impurity and 'entropy' for information gain.
+    max_depth=None,          # The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
+    min_samples_split=2,     # The minimum number of samples required to split an internal node.
+    min_samples_leaf=1,      # The minimum number of samples required to be at a leaf node.
+    min_weight_fraction_leaf=0.0, # The minimum weighted fraction of the sum total of weights (of all the input samples) required to be at a leaf node.
+    max_leaf_nodes=None,     # Grow trees with `max_leaf_nodes` in best-first fashion. Best nodes are defined as relative reduction in impurity.
+    min_impurity_decrease=0.0, # A node will be split if this split induces a decrease of the impurity greater than or equal to this value.
+    bootstrap=True,          # Whether bootstrap samples are used when building trees. If False, the whole dataset is used to build each tree.
+    oob_score=False,         # Whether to use out-of-bag samples to estimate the generalization accuracy.
+    n_jobs=-1,             # The number of jobs to run in parallel. None means 1. -1 means using all processors.
+    random_state=None,       # Controls both the randomness of the bootstrapping of the samples used when building trees (if bootstrap=True) and the sampling of the features to consider when looking for the best split at each node.
+    verbose=0,               # Controls the verbosity when fitting and predicting.
+    warm_start=False,        # When set to True, reuse the solution of the previous call to fit and add more estimators to the ensemble, otherwise, just fit a whole new forest.
+    class_weight=None,       # Weights associated with classes in the form `{class_label: weight}`. If not given, all classes are supposed to have weight one.
+    ccp_alpha=0.0,           # Complexity parameter used for Minimal Cost-Complexity Pruning. The subtree with the largest cost complexity that is smaller than `ccp_alpha` will be chosen.
+    max_samples=None         # If bootstrap is True, the number of samples to draw from X to train each base estimator.
+)
+
+# Fit the Random Forest classifier to the training data
+rf.fit(x_train, y_train_class)
 
 #======================================================================================
 
+# Evaluate the model's performance on both the training and test sets
+evaluate_classification(rf, "RandomForestClassifier", X_train, X_test, y_train_class, y_test_class)
 
+# Perform 5-fold cross-validation to assess model's stability and performance across different subsets of the data
+# Cross-validation is crucial for verifying the model's ability to generalize to unseen data
+cv_scores = cross_val_score(rf, X_train, y_train_class, cv=5, scoring='accuracy')
+
+# Print the accuracy scores obtained from cross-validation
+# These scores provide insight into how the model performs on different folds of the training data
+print("Cross-Validation Accuracy Scores:", cv_scores)
+
+# Calculate the mean and standard deviation of the cross-validation scores to get an overall performance metric and its variability
+mean_cv_accuracy = cv_scores.mean()
+std_cv_accuracy = cv_scores.std()
+print(f"Mean CV Accuracy: {mean_cv_accuracy:.2f}, Standard Deviation in CV Accuracy: {std_cv_accuracy:.2f}")
 
 #======================================================================================
 
