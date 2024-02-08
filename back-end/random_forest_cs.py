@@ -20,5 +20,5 @@ from sklearn import metrics
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix, ConfusionMatrixDisplay
 
 pd.set_option('display.max_columns',None)
-%matplotlib inline
+
 
