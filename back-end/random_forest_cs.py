@@ -216,7 +216,7 @@ rf = RandomForestClassifier(
     min_impurity_decrease=0.0, # A node will be split if this split induces a decrease of the impurity greater than or equal to this value.
     bootstrap=True,          # Whether bootstrap samples are used when building trees. If False, the whole dataset is used to build each tree.
     oob_score=False,         # Whether to use out-of-bag samples to estimate the generalization accuracy.
-    n_jobs=-1,             # The number of jobs to run in parallel. None means 1. -1 means using all processors.
+    n_jobs=-1,               # The number of jobs to run in parallel. None means 1. -1 means using all processors.
     random_state=None,       # Controls both the randomness of the bootstrapping of the samples used when building trees (if bootstrap=True) and the sampling of the features to consider when looking for the best split at each node.
     verbose=0,               # Controls the verbosity when fitting and predicting.
     warm_start=False,        # When set to True, reuse the solution of the previous call to fit and add more estimators to the ensemble, otherwise, just fit a whole new forest.
@@ -225,8 +225,8 @@ rf = RandomForestClassifier(
     max_samples=None         # If bootstrap is True, the number of samples to draw from X to train each base estimator.
 )
 
-# Fit the Random Forest classifier to the training data
-rf.fit(x_train, y_train_class)
+# Fit the Random Forest classifier to the training data7
+rf.fit(X_train, y_train_class)
 
 #======================================================================================
 
