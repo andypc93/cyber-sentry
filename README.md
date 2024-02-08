@@ -1,2 +1,2 @@
 # cyber-centry
- Cyber Sentry - Capstone Project - PUPr 2023/24
+ Cyber Sentry - Capstone Project - PUPR 2023/24
