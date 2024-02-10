@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import xgboost as xgb
+import sqlite3 as sql
 
 from sklearn.decomposition import PCA
 from sklearn import tree
@@ -21,20 +21,21 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, confu
 
 pd.set_option('display.max_columns',None)
 
-#===================================================================================
+# ====================================================================================================
 
-# Define the path to the SQLite database file
-db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
+db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
 
 # Establish a connection to the database specified by db_path
-conn = sqlite3.connect(db_path)
+conn = sql.connect(db_path)
 
 # Create a cursor object to execute SQL queries
 cursor = conn.cursor()
 
 # Execute a SQL query to select all records from the 'network_activity' table
 # and store the result in a pandas DataFrame 'df' for further analysis
-df = pd.read_sql_query("SELECT * FROM network_activity", conn)
+#df = pd.read_sql_query("SELECT * FROM network_activity", conn)
+df_test = pd.read_sql_query("SELECT * FROM testing_data", conn)
+df_train = pd.read_sql_query("SELECT * FROM training_data", conn)
 
 # Close the cursor to release database resources
 cursor.close()
@@ -42,133 +43,100 @@ cursor.close()
 # Close the connection to the database to ensure data integrity and release resources
 conn.close()
 
-#=====================================================================================
+# ====================================================================================================
 
-# This line updates the 'outcome' column in the df_train DataFrame again.
-# For all rows where the 'outcome' is not 'normal', it sets the 'outcome' value to 'attack'.
-# This is a way to categorize all outcomes into two groups: 'normal' and 'attack',
-# effectively binarizing the 'outcome' column into these two categories.
-df.loc[df['outcome'] == "normal", "outcome"] = 'normal'
+columns = (['duration','protocol_type','service','flag','src_bytes','dst_bytes','land','wrong_fragment','urgent','hot'
+,'num_failed_logins','logged_in','num_compromised','root_shell','su_attempted','num_root','num_file_creations'
+,'num_shells','num_access_files','num_outbound_cmds','is_host_login','is_guest_login','count','srv_count','serror_rate'
+,'srv_serror_rate','rerror_rate','srv_rerror_rate','same_srv_rate','diff_srv_rate','srv_diff_host_rate','dst_host_count','dst_host_srv_count'
+,'dst_host_same_srv_rate','dst_host_diff_srv_rate','dst_host_same_src_port_rate','dst_host_srv_diff_host_rate','dst_host_serror_rate'
+,'dst_host_srv_serror_rate','dst_host_rerror_rate','dst_host_srv_rerror_rate','outcome','level'])
 
-df.loc[df['outcome'] != 'normal', "outcome"] = 'attack'
+# Assign name for columns
+df_train.columns = columns
+df_test.columns = columns
 
-#======================================================================================
+# ====================================================================================================
 
-def bar_plot(df, cols_list, rows, cols):
-    # Create a grid of subplots with the specified number of rows and columns.
-    fig, axes = plt.subplots(rows, cols, figsize=(20, 10))
-    fig.tight_layout(pad=1.0)  # Add spacing between plots for clarity
+# For the training dataset:
+# Keep rows with 'outcome' as 'normal' unchanged.
+df_train.loc[df_train['outcome'] == "normal", "outcome"] = 'normal'  
+# Change 'outcome' values not equal to 'normal' to 'attack' in the training dataset.
+df_train.loc[df_train['outcome'] != 'normal', "outcome"] = 'attack'
 
-    # Flatten the axes array and iterate over it along with the column names in cols_list.
-    for ax, col in zip(axes.ravel(), cols_list):
-        # Use Seaborn's countplot to create a bar chart.
-        sns.countplot(x=col, data=df, ax=ax)
+df_test.loc[df_test['outcome'] == "normal", "outcome"] = 'normal'  
+# Change 'outcome' values not equal to 'normal' to 'attack' in the training dataset.
+df_test.loc[df_test['outcome'] != 'normal', "outcome"] = 'attack'
 
-        # Calculate the total number of data points for the percentage calculation.
-        total = len(df[col])
-
-        # Iterate through the patches (bars) in the barplot to get their properties.
-        for p in ax.patches:
-            # Calculate the percentage and format it.
-            percentage = '{:.1f}%'.format(100 * p.get_height() / total)
-            # Get the x and y coordinates to place the text.
-            x = p.get_x() + p.get_width() / 2
-            y = p.get_height()
-            # Place the text on the bar.
-            ax.text(x, y, percentage, ha='center', va='bottom')
-
-        # Set the title of the current subplot to the name of the column.
-        ax.set_title(str(col), fontsize=12)
-
-        # Rotate the x-axis labels for better readability.
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-
-    # Adjust the layout and display the figure with all the bar charts.
-    plt.tight_layout()
-    plt.show()
-
-#bar plot print out variable
-bar_plot_1 = bar_plot(df, ['protocol_type', 'outcome'],1,2)
-
-#======================================================================================
-
-def pie_plot(df, cols_list, rows, cols):
-    # Create a grid of subplots with the specified number of rows and columns.
-    fig, axes = plt.subplots(rows, cols, figsize=(15, 20))
-    fig.tight_layout(pad=1.0)  # Add spacing between plots for clarity
-
-    # If there is only one row or one column, axes is a 1D numpy array.
-    if rows == 1 or cols == 1:
-        axes = axes.flatten()
-    else:
-        axes = axes.ravel()  # Flatten the axes array for iteration
-
-    # Iterate over the axes array and the column names in cols_list.
-    for ax, col in zip(axes, cols_list):
-        # Calculate the value counts for the current column.
-        counts = df[col].value_counts()
-
-        # Create a pie chart in each subplot.
-        ax.pie(counts, labels=counts.index, autopct='%1.1f%%', startangle=140)
-
-        # Set the title of the current subplot to the name of the column.
-        ax.set_title(str(col), fontsize=12)
-
-    # Adjust the layout and display the figure with all the pie charts.
-    plt.tight_layout()
-    plt.show()
-
-    #pie plot output variable
-    pie_plot_1 = pie_plot(df, ['protocol_type','outcome'], 1, 2)
-
-#======================================================================================
+# ====================================================================================================
 
 def preprocess(dataframe, scaler=None):
-
-    # Separate categorical and numerical columns
+    # Define categorical and numerical columns
     cat_cols = ['is_host_login', 'protocol_type', 'service', 'flag', 'land', 'logged_in', 'is_guest_login', 'level', 'outcome']
     num_cols = dataframe.drop(columns=cat_cols).columns
 
-    # Scale numerical columns
+    # Scale numerical columns if scaler is not provided
     if not scaler:
-        scaler = StandardScaler()
-    dataframe[num_cols] = scaler.fit_transform(dataframe[num_cols])
+        scaler = StandardScaler()  # Initialize StandardScaler if not provided
+    dataframe[num_cols] = scaler.fit_transform(dataframe[num_cols])  # Fit and transform numerical columns using scaler
 
-    # Encode 'outcome' as binary
+    # Encode 'outcome' as binary (0 for 'normal', 1 for other values)
     dataframe.loc[dataframe['outcome'] == "normal", "outcome"] = 0
     dataframe.loc[dataframe['outcome'] != 0, "outcome"] = 1
 
-    # Encode categorical columns as dummies
+    # Encode categorical columns as dummy variables
     dataframe = pd.get_dummies(dataframe, columns=['protocol_type', 'service', 'flag'])
 
-    return dataframe, scaler
+    return dataframe, scaler  # Return preprocessed DataFrame and scaler
+
+# ====================================================================================================
 
 # Fit and transform the training data
-df_scaled, scaler = preprocess(df)
+df_train_scaled, scalar = preprocess(df_train)
+df_test_scaled, scalar = preprocess(df_test)
 
-#======================================================================================
+# ====================================================================================================
 
-# Prepare feature and target variables
-x = df_scaled.drop(['outcome', 'level'], axis=1).values
-y = df_scaled['outcome'].values.astype(int)  # Direct conversion to int
-y_reg = df_scaled['level'].values
+def find_diff_col(df1, df2):
+    # Find the difference in columns
+    diff_1_to_2 = set(df1.columns) - set(df2.columns)
+    diff_2_to_1 = set(df2.columns) - set(df1.columns)
 
-# Apply PCA to reduce dimensionality for the classification task
-pca = PCA(n_components=20).fit(x)  # Fit and instantiate PCA in one step
-x_reduced = pca.transform(x)
-print(f"Number of original features is {x.shape[1]} and of reduced features is {x_reduced.shape[1]}")
+    # Print out the different column names
+    print("Columns in df1 not in df2:", diff_1_to_2)
+    print("Columns in df2 not in df1:", diff_2_to_1)
 
-# Splitting the dataset into training and testing sets for both original and reduced feature sets
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-x_train_reduced, x_test_reduced, y_train_reduced, y_test_reduced = train_test_split(x_reduced, y, test_size=0.2, random_state=42)
-x_train_reg, x_test_reg, y_train_reg, y_test_reg = train_test_split(x, y_reg, test_size=0.2, random_state=42)
+find_diff_col(df_train_scaled, df_test_scaled)
 
-# Initialize a dictionary to store evaluation metrics
-model_evals = dict()
+# ====================================================================================================
 
-#======================================================================================
+# Prepare feature variables from the scaled datasets, excluding 'outcome' and 'level' from features
+X_train = df_train_scaled.drop(['outcome', 'level'], axis=1)
+Y_train = df_train_scaled['outcome'].values.astype('int')
+
+x_test = df_test_scaled.drop(['outcome', 'level'], axis=1)  # Use consistent naming convention
+y_test = df_test_scaled['outcome'].values.astype('int')
+
+# Instantiate PCA with desired number of components
+pca = PCA(n_components=20)  # Example: reducing to 22 components
+
+# Fit PCA on the training data and transform it
+X_train_reduced = pca.fit_transform(X_train)
+
+# Transform the test data using the already fitted PCA (do not fit it again)
+x_test_reduced = pca.transform(x_test)  # Use transform, not fit_transform
+
+# Correctly print the number of features after PCA
+print(f"Number of original features in X_train is {X_train.shape[1]} and number of reduced features after PCA is {X_train_reduced.shape[1]}")
+print(f"Number of original features in X_test is {x_test.shape[1]} and number of reduced features after PCA is {x_test_reduced.shape[1]}")
+
+
+# ====================================================================================================
 
 def evaluate_classification(model, name, X_train, X_test, y_train, y_test):
+
+    # Fit the model using the training data
+    model.fit(X_train, y_train)
 
     # Make predictions
     y_pred_train = model.predict(X_train)
@@ -177,18 +145,18 @@ def evaluate_classification(model, name, X_train, X_test, y_train, y_test):
     # Calculate metrics
     train_accuracy = accuracy_score(y_train, y_pred_train)
     test_accuracy = accuracy_score(y_test, y_pred_test)
-    train_precision = precision_score(y_train, y_pred_train)
-    test_precision = precision_score(y_test, y_pred_test)
-    train_recall = recall_score(y_train, y_pred_train)
-    test_recall = recall_score(y_test, y_pred_test)
-
-    # Store metrics in dictionary
-    model_evals[name] = [train_accuracy, test_accuracy, train_precision, test_precision, train_recall, test_recall]
+    train_precision = precision_score(y_train, y_pred_train, average='macro')
+    test_precision = precision_score(y_test, y_pred_test, average='macro')
+    train_recall = recall_score(y_train, y_pred_train, average='macro')
+    test_recall = recall_score(y_test, y_pred_test, average='macro')
 
     # Output metrics
-    print(f"Training Accuracy {name}: {train_accuracy*100:.2f}%  Test Accuracy {name}: {test_accuracy*100:.2f}%")
-    print(f"Training Precision {name}: {train_precision*100:.2f}%  Test Precision {name}: {test_precision*100:.2f}%")
-    print(f"Training Recall {name}: {train_recall*100:.2f}%  Test Recall {name}: {test_recall*100:.2f}%")
+    print(f"Training Accuracy {name}: {train_accuracy*100:.2f}%")
+    print(f"Test Accuracy {name}: {test_accuracy*100:.2f}%")
+    print(f"Training Precision {name}: {train_precision*100:.2f}%")
+    print(f"Test Precision {name}: {test_precision*100:.2f}%")
+    print(f"Training Recall {name}: {train_recall*100:.2f}%")
+    print(f"Test Recall {name}: {test_recall*100:.2f}%")
 
     # Display confusion matrix
     confusion_mtx = confusion_matrix(y_test, y_pred_test)
@@ -199,24 +167,24 @@ def evaluate_classification(model, name, X_train, X_test, y_train, y_test):
     plt.grid(False)
     plt.show()
 
-# Example usage (model needs to be defined and trained before calling this function):
-# evaluate_classification(your_model, "Your Model Name", x_train, x_test, y_train, y_test)
+# You will call the evaluate_classification function like this, for example:
+# evaluate_classification(your_model, 'Your Model Name', X_train, X_test, y_train_class, y_test_class)
 
-#======================================================================================
 
-# Initialize the RandomForestClassifier with various parameters
+# ====================================================================================================
+
 rf = RandomForestClassifier(
-    n_estimators=150,        # Number of trees in the forest.
+    n_estimators=100,        # Number of trees in the forest.
     criterion='gini',        # The function to measure the quality of a split. 'gini' for Gini impurity and 'entropy' for information gain.
-    max_depth=None,          # The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
-    min_samples_split=2,     # The minimum number of samples required to split an internal node.
+    max_depth=10,          # The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
+    min_samples_split=20,     # The minimum number of samples required to split an internal node.
     min_samples_leaf=1,      # The minimum number of samples required to be at a leaf node.
     min_weight_fraction_leaf=0.0, # The minimum weighted fraction of the sum total of weights (of all the input samples) required to be at a leaf node.
     max_leaf_nodes=None,     # Grow trees with `max_leaf_nodes` in best-first fashion. Best nodes are defined as relative reduction in impurity.
     min_impurity_decrease=0.0, # A node will be split if this split induces a decrease of the impurity greater than or equal to this value.
     bootstrap=True,          # Whether bootstrap samples are used when building trees. If False, the whole dataset is used to build each tree.
     oob_score=False,         # Whether to use out-of-bag samples to estimate the generalization accuracy.
-    n_jobs=-1,               # The number of jobs to run in parallel. None means 1. -1 means using all processors.
+    n_jobs=-1,             # The number of jobs to run in parallel. None means 1. -1 means using all processors.
     random_state=None,       # Controls both the randomness of the bootstrapping of the samples used when building trees (if bootstrap=True) and the sampling of the features to consider when looking for the best split at each node.
     verbose=0,               # Controls the verbosity when fitting and predicting.
     warm_start=False,        # When set to True, reuse the solution of the previous call to fit and add more estimators to the ensemble, otherwise, just fit a whole new forest.
@@ -225,27 +193,60 @@ rf = RandomForestClassifier(
     max_samples=None         # If bootstrap is True, the number of samples to draw from X to train each base estimator.
 )
 
-# Fit the Random Forest classifier to the training data7
-rf.fit(X_train, y_train_class)
-
-#======================================================================================
-
 # Evaluate the model's performance on both the training and test sets
-evaluate_classification(rf, "RandomForestClassifier", X_train, X_test, y_train_class, y_test_class)
-
-# Perform 5-fold cross-validation to assess model's stability and performance across different subsets of the data
-# Cross-validation is crucial for verifying the model's ability to generalize to unseen data
-cv_scores = cross_val_score(rf, X_train, y_train_class, cv=5, scoring='accuracy')
-
-# Print the accuracy scores obtained from cross-validation
-# These scores provide insight into how the model performs on different folds of the training data
-print("Cross-Validation Accuracy Scores:", cv_scores)
-
-# Calculate the mean and standard deviation of the cross-validation scores to get an overall performance metric and its variability
-mean_cv_accuracy = cv_scores.mean()
-std_cv_accuracy = cv_scores.std()
-print(f"Mean CV Accuracy: {mean_cv_accuracy:.2f}, Standard Deviation in CV Accuracy: {std_cv_accuracy:.2f}")
-
-#======================================================================================
+evaluate_classification(rf, "RandomForestClassifier", X_train_reduced, x_test_reduced, Y_train, y_test)
 
 
+# ====================================================================================================
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report
+
+def tune_random_forest(X_train, y_train, X_test, y_test, param_grid, cv=5):
+    """
+    Tune a RandomForestClassifier based on a given set of parameters.
+
+    :param X_train: Training features
+    :param y_train: Training target
+    :param X_test: Test features
+    :param y_test: Test target
+    :param param_grid: Dictionary with parameters names (`str`) as keys and lists of parameter settings to try as values
+    :param cv: Number of cross-validation folds
+    :return: The best estimator from the grid search
+    """
+    # Initialize the RandomForestClassifier
+    rf = RandomForestClassifier()
+
+    # Initialize GridSearchCV
+    grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=cv, n_jobs=12, verbose=10)
+
+    # Fit GridSearchCV
+    grid_search.fit(X_train, y_train)
+
+    # Print the best parameters and the best score
+    print("Best Parameters:", grid_search.best_params_)
+    print("Best Score:", grid_search.best_score_)
+
+    # Predict on the test set using the best found parameters
+    y_pred_test = grid_search.best_estimator_.predict(X_test)
+
+    # Print classification report
+    print(classification_report(y_test, y_pred_test))
+
+    # Return the best estimator
+    return grid_search.best_estimator_, grid_search.cv_results_
+
+
+# Define a more granular parameter grid
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [10, 20, None],
+    'min_samples_split': [2, 10, 20],
+    'min_samples_leaf': [1, 5, 10]                   # Including both options for bootstrapping samples
+}
+
+# Call the function
+best_rf, cv_results = tune_random_forest(X_train_reduced, Y_train, x_test_reduced, y_test, param_grid)
+
+# ====================================================================================================
