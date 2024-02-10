@@ -9,6 +9,7 @@ import schedule, time
 app = Flask(__name__)
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
+#Hola
 # Ruta para la pagina de login.
 @app.route('/', methods=['GET', 'POST'])
 def login():
