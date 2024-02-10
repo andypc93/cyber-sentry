@@ -9,7 +9,6 @@ import schedule, time
 app = Flask(__name__)
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
-#Hola
 # Ruta para la pagina de login.
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -38,6 +37,18 @@ def login():
 def main_menu():
     # You can add any content or features to the main menu page.
     return render_template('main_menu.html')
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html') 
+
+@app.route('/malware.html')
+def malware():
+    return render_template('malware.html') 
+
+@app.route('/threat.html')
+def threat():
+    return render_template('threat.html') 
 
 # Ruta para la grafica.
 # @app.route('/plot') 
