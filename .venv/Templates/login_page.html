@@ -6,8 +6,8 @@
     <title>Login Page</title>
     <style>
         body {
-            font-family: 'Bungee', serif;
-            background: linear-gradient(to bottom, #333333, #555555);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #131418; /* Adjusted to match the image background */
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,12 +26,12 @@
         }
 
         h1 {
-            font-size: 28px;
+            color: #333; /* Adjusted to match the image text color */
             margin-bottom: 20px;
-            color: #333;
         }
 
         label {
+            color: #333; /* Adjusted to match the image text color */
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
@@ -47,7 +47,7 @@
         }
 
         button {
-            background-color: #4caf50;
+            background-color: #3498db; /* Changed to blue */
             color: white;
             padding: 10px 15px;
             border: none;
@@ -57,13 +57,23 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #2980b9; /* Darker shade of blue for hover effect */
+        }
+
+        /* Added styles for the error message */
+        p {
+            color: red; /* Error message in red */
+            margin-top: 20px;
+        }
+
+        img {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="Image" style="width: 100px; height: 100px; margin-bottom: 10px;">
+        <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
         <h1>CyberSentry</h1>
 
         <form method="POST" action="{{ url_for('login') }}">
