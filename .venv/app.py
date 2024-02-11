@@ -68,7 +68,7 @@ def threat():
 #    buffer.seek(0)
 #    plt.close()
 
-    # Encode the plot image to base64
+    # Encode the plot image to base64x
 #    plot_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
 
     # Return the plot data as JSON
