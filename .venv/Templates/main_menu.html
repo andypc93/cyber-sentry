@@ -4,85 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberSentry Menu</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <style>
         body {
-            font-family: Bungee, sans-serif;
+            font-family: 'Bungee', sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
         }
 
         header {
             background-color: #333;
-            padding: 15px;
             color: #fff;
+            padding: 2rem 0;
             text-align: center;
         }
 
         nav {
             background-color: #444;
-            overflow: hidden;
+            padding: 0.5rem 0;
         }
 
-        nav a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        .dropdown {
-            float: left;
-            overflow: hidden;
-        }
-
-        .dropdown .dropbtn {
-            font-size: 16px;
-            border: none;
-            outline: none;
-            color: white;
-            padding: 14px 16px;
-            background-color: inherit;
-            font-family: inherit;
+        nav ul {
+            list-style-type: none;
+            padding: 0;
             margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        nav a:hover, .dropdown:hover .dropbtn {
-            background-color: #555;
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav a, .dropdown .dropbtn {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            float: none;
-            color: black;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #ddd;
+            z-index: 1;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        /* New styles for the "Start" button */
-        .start-button-container {
-            text-align: center;
-            margin-top: 20px;
+        .dropdown-content a {
+            color: black;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
         }
 
         .start-button {
@@ -93,6 +71,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            display: inline-block;
+            margin: 20px 0;
         }
 
         .start-button:hover {
@@ -102,183 +82,47 @@
 </head>
 <body>
     <header>
-        <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="Image" style="width: 100px; height: 100px; margin-bottom: 10px;">
+        <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
         <h1>CyberSentry</h1>
     </header>
 
     <nav>
-        <a href="#">Home</a>
-
-          <div class="dropdown">
-            <button class="dropbtn">About</button>
-            <div class="dropdown-content">
-                <div>
-                    <h4>What is CyberSentry?</h4>
-                    <p>CyberSentry is an advanced Intrusion Detection System (IDS) empowered by machine learning capabilities. 
-                        Our innovative solution effectively classifies and identifies malware, enhancing your digital security measures. 
-                        Utilizing a Flask-based executable, CyberSentry operates seamlessly within your web environment, 
-                        providing robust protection against cyber threats with unparalleled accuracy and efficiency.</p>
-
-        <div class="dropdown">
-            <button class="dropbtn">Services</button>
-            <div class="dropdown-content">
-                <a href="#">Service 1</a>
-                <a href="#">Service 2</a>
-                <a href="#">Service 3</a>
-            </div>
-        </div>
-
-        <!--<div class="dropdown">
-            <button class="dropbtn">Products</button>
-            <div class="dropdown-content">
-                <a href="#">Product 1</a>
-                <a href="#">Product 2</a>
-                <a href="#">Product 3</a>
-            </div>
-        </div>-->
-
-        <!--<a href="#">Contact</a>-->
-
-        <div class="dropdown">
-            <button class="dropbtn">Contact</button>
-            <div class="dropdown-content">
-                <div>
-                    <h3>You can reach us at:</h3>
-                <a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a>
-                <a href="tel:000-000-0000">Tel: 000-000-0000</a>
-
-        <div class="dropdown">
-            <button class="dropbtn">Help</button>
-            <div class="dropdown-content">
-                <a href="#">Product 1</a>
-                <a href="#">Product 2</a>
-                <a href="#">Product 3</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropbtn">FAQ</button>
-            <div class="dropdown-content">
-                <div>
-                    <h3>Frequently Asked Questions (FAQ) - Understanding Malware</h3>
-    
-                    <h4>What is malware?</h4>
-                    <p>Malware, short for malicious software, refers to any software specifically designed to harm or exploit devices, networks, or users.</p>
-    
-                    <h4>How is malware classified?</h4>
-                    <p>Malware is classified based on its intended purpose and functionality. Common classifications include:
-
-                        Viruses:
-                        
-                        Programs that attach themselves to legitimate files and replicate when those files are executed.
-                        Trojans:
-                        
-                        Malicious programs disguised as legitimate software to deceive users into installing them. They often create backdoors for attackers.
-                        Worms:
-                        
-                        Self-replicating programs that spread across networks without user intervention, exploiting vulnerabilities.
-                        Ransomware:
-                        
-                        Encrypts a user's files and demands payment (usually in cryptocurrency) for their release.
-                        Spyware:
-                        
-                        Collects user information without their knowledge, often for advertising or malicious purposes.
-                        Adware:
-                        
-                        Displays unwanted advertisements on a user's device, often accompanied by tracking features.
-                        Rootkits:
-                        
-                        Conceals malicious software by subverting or disabling security measures on a targeted system.
-                        Botnets:
-                        
-                        Networks of compromised devices (bots) controlled by a single entity for various malicious activities, such as DDoS attacks.</p>
-    
-                    <h4>Is there a guarantee that antivirus software will protect me from all types of malware?</h4>
-                    <p>While antivirus software is crucial for protection, it is not a guarantee against all forms of malware. Cyber threats evolve, and new malware variants are continuously created.</p>
-    
-                    <h4>Where can I find more information about cybersecurity?</h4>
-                    <p>Stay informed about cybersecurity best practices, emerging threats, and industry news through reputable sources such as cybersecurity blogs, forums, and official websites of cybersecurity organizations.</p>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">About</a>
+                <div class="dropdown-content">
+                    <p>CyberSentry is an advanced Intrusion Detection System (IDS)...</p>
                 </div>
-        </div>
-
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Services</a>
+                <div class="dropdown-content">
+                    <a href="#">Service 1</a>
+                    <a href="#">Service 2</a>
+                    <a href="#">Service 3</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Contact</a>
+                <div class="dropdown-content">
+                    <a href="mailto:cybersentrysupport@cybersentry.org">Email</a>
+                    <a href="tel:000-000-0000">Tel: 000-000-0000</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Help</a>
+                <div class="dropdown-content">
+                    <a href="#">FAQ</a>
+                </div>
+            </li>
+        </ul>
     </nav>
 
-    <!-- "Start" button -->
-   <!-- <div class="start-button-container">
-        <button class="start-button" id="startButton">Start</button>
-    </div> -->
-
-<!--    <div id="container">
-        <div id="plotDisplay">
-            <! Plot will be displayed here -->
-     <!--   </div>
-        <div id="employeeInfo">
-             Employee information will be displayed here 
-        </div>
-    </div>   --> 
-
-    <!-- EventListener para que cuando el boton sea precionado la informacion sea recogida y mostrada -->
-  <!--  <script>
-        document.getElementById('startButton').addEventListener('click', function() {
-            // Clear previous content
-            document.getElementById('plotDisplay').innerHTML = '';
-            document.getElementById('employeeInfo').innerHTML = '';
-    
-            // Make AJAX request to fetch plot data
-            var xhrPlot = new XMLHttpRequest();
-            xhrPlot.open('GET', '/plot');
-            xhrPlot.responseType = 'json';
-            xhrPlot.onload = function() {
-                if (xhrPlot.status === 200) {
-                    var plotData = xhrPlot.response.plot_data;
-                    var plotDisplay = document.getElementById('plotDisplay');
-                    var plotImage = document.createElement('img');
-                    plotImage.src = 'data:image/png;base64,' + plotData;
-                    plotDisplay.appendChild(plotImage);
-    
-                    // Make AJAX request to fetch employee information
-                    var xhrEmployee = new XMLHttpRequest();
-                    xhrEmployee.open('GET', '/employee_info');
-                    xhrEmployee.responseType = 'json';
-                    xhrEmployee.onload = function() {
-                        if (xhrEmployee.status === 200) {
-                            var employeeInfo = xhrEmployee.response.employee_info;
-                            var employeeInfoDisplay = document.getElementById('employeeInfo');
-                            var employeeList = document.createElement('ul');
-                            employeeInfo.forEach(function(employee) {
-                                var listItem = document.createElement('li');
-                                listItem.textContent = employee.name + ' - ID: ' + employee.id;
-                                employeeList.appendChild(listItem);
-                            });
-                            employeeInfoDisplay.appendChild(employeeList);
-                        } else {
-                            console.log('Request for employee information failed. Status: ' + xhrEmployee.status);
-                        }
-                    };
-                    xhrEmployee.send();
-                } else {
-                    console.log('Request for plot data failed. Status: ' + xhrPlot.status);
-                }
-            };
-            xhrPlot.send();
-        });
-    </script> -->
-        
-    <form id="startNotebookForm" action="{{ url_for('start_notebook') }}" method="post">
-        <input type="submit" value="Start Notebook">
-    </form>
-
-    <script>
-        document.getElementById('startNotebookForm').addEventListener('submit', function (event) {
-            // Prevent the default form submission
-            event.preventDefault();
-
-            // Submit the form using AJAX
-            fetch(this.action, { method: 'POST' })
-                .then(response => response.json())
-                .then(data => console.log(data));  // You can handle the response as needed
-        });
-    </script>
+    <div class="start-button-container">
+        <button class="start-button" onclick="alert('Starting...')">Start</button>
+    </div>
 </body>
 </html>
+
 
