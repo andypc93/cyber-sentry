@@ -2,86 +2,114 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>About CyberSentry</title>
-        <!-- Bootstrap CSS -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
         <style>
-            /* Custom styles can go here */
-            .hero-section {
-                background: url('path_to_your_image.jpg') no-repeat center center;
-                background-size: cover;
-                padding: 50px 0;
-                color: white;
-            }
-
-            .about-section {
-                padding: 40px 0;
-            }
-
-            .about-heading {
-                font-weight: 700;
-                margin-bottom: 30px;
-            }
-
-            .about-text {
-                font-size: 1.1em;
-                line-height: 1.6;
-            }
-
-            /* You can choose colors that complement your main color scheme */
-            .card {
-                border: none;
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            }
-
-            .card-header {
-                background-color: #3498db;
-                color: white;
-            }
-
-            .indented {
-              margin-left: 20px; /* Adjust the value as needed */
-            }
-        
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+          }
+      
+          header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+          }
+      
+          header h1 {
+            color: #fff;
+            margin: 10px 0;
+          }
+      
+          nav {
+            background-color: #444;
+            padding: 0.5rem 0;
+            display: flex;
+            justify-content: center;
+          }
+      
+          nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+          }
+      
+          nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+          }
+      
+          .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+          }
+      
+          footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+          }
+      
+          footer a {
+            color: #61dafb;
+            text-decoration: none;
+          }
+      
+          footer a:hover {
+            text-decoration: underline;
+          }
+          
+          .start-button-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 2rem 0;
+          }
+      
+          .start-button {
+              background-color: #3498db;
+              color: white;
+              padding: 15px 200px;
+              font-size: 30px;
+              border: none;
+              border-radius: 25px;
+              cursor: pointer;
+              display: inline-block;
+              margin: auto;
+          }
+      
+          .start-button:hover {
+              background-color: #2980b9;
+          }
         </style>
+        <title>FAQ - CyberSentry</title>
     </head>
     <body>
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">CyberSentry</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Help</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- Hero Section -->
-        <div class="hero-section text-center">
-            <h1>About CyberSentry</h1>
-            <p>Learn more about our mission and technology</p>
-        </div>
-
+        <header>
+            <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
+            <h1>CyberSentry</h1>
+          </header>
         
+          <nav class="container-fluid">
+            <ul>
+              <li><a href="main_menu.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="faq.html" role="button">Help</a></li>
+            </ul>
+          </nav>        
 
         <!-- FAQ Section -->
         <div class="container about-section">
