@@ -41,13 +41,9 @@ def main_menu():
 def about():
     return render_template('about.html') 
 
-@app.route('/malware.html')
+@app.route('/faq.html')
 def malware():
-    return render_template('malware.html') 
-
-@app.route('/threat.html')
-def threat():
-    return render_template('threat.html') 
+    return render_template('faq.html')  
 
 # Ruta para la grafica.
 # @app.route('/plot') 
