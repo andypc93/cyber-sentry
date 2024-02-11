@@ -1,128 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSentry Menu</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <style>
-        body {
-            font-family: 'Bungee', sans-serif;
-            background-color: #f4f4f4;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 2rem 0;
-            text-align: center;
-        }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 2rem 0;
+      text-align: center;
+    }
 
-        nav {
-            background-color: #444;
-            padding: 0.5rem 0;
-        }
+    nav {
+      background-color: #444;
+      padding: 0.5rem 0;
+    }
 
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    nav .container-fluid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        nav ul li {
-            margin: 0 10px;
-        }
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+    }
 
-        nav a, .dropdown .dropbtn {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            display: block;
-        }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+    }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            padding: 12px 16px;
-            z-index: 1;
-        }
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
 
-        .dropdown-content a {
-            color: black;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: block;
-        }
+    footer a {
+      color: #61dafb;
+      text-decoration: none;
+    }
 
-        .start-button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-block;
-            margin: 20px 0;
-        }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .start-button-container {
+      text-align: center;
+      margin: 2rem 0;
+    }
 
-        .start-button:hover {
-            background-color: #2980b9;
-        }
-    </style>
+    .start-button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .start-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+  <title>CyberSentry</title>
 </head>
 <body>
-    <header>
-        <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
-        <h1>CyberSentry</h1>
-    </header>
+  <header>
+    <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
+    <h1>CyberSentry</h1>
+  </header>
 
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">About</a>
-                <div class="dropdown-content">
-                    <p>CyberSentry is an advanced Intrusion Detection System (IDS)...</p>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Services</a>
-                <div class="dropdown-content">
-                    <a href="#">Service 1</a>
-                    <a href="#">Service 2</a>
-                    <a href="#">Service 3</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Contact</a>
-                <div class="dropdown-content">
-                    <a href="mailto:cybersentrysupport@cybersentry.org">Email</a>
-                    <a href="tel:000-000-0000">Tel: 000-000-0000</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Help</a>
-                <div class="dropdown-content">
-                    <a href="#">FAQ</a>
-                </div>
-            </li>
-        </ul>
-    </nav>
+  <nav class="container-fluid">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#" role="button">Help</a></li>
+    </ul>
+  </nav>
 
-    <div class="start-button-container">
-        <button class="start-button" onclick="alert('Starting...')">Start</button>
-    </div>
+  <main class="container">
+    <section>
+      <hgroup>
+        <h2>Welcome to CyberSentry</h2>
+        <h3>Your trusted partner in cyber security.</h3>
+      </hgroup>
+      <p>At CyberSentry, we provide top-notch security solutions to protect your digital assets. Our services are designed to give you peace of mind in the evolving landscape of cyber threats.</p>
+      <figure>
+        <img src="https://source.unsplash.com/featured/?cybersecurity" alt="Cybersecurity" />
+        <figcaption><a href="https://unsplash.com/s/photos/cybersecurity" target="_blank">Image Source</a></figcaption>
+      </figure>
+      <h3>Our Services</h3>
+      <p>Explore our wide range of services tailored to safeguard your business against any cyber threat.</p>
+      <h3>Contact Us</h3>
+      <p>Get in touch with our team of experts for any inquiries or support needed.</p>
+    </section>
+  </main>
+
+  <div class="start-button-container">
+    <button class="start-button" onclick="event.preventDefault()">Start</button>
+  </div>
+
+  <section aria-label="Subscribe example" class="container">
+    <h2>Stay Updated</h2>
+    <h3>Subscribe to our newsletter</h3>
+    <form class="grid">
+      <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
+      <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
+      <button type="submit" onclick="event.preventDefault()">Subscribe</button>
+    </form>
+  </section>
+
+  <footer>
+    <small>
+      <a href="#">Privacy Policy</a> • <a href="#">Terms of Use</a>
+    </small>
+  </footer>
 </body>
 </html>
-
-
