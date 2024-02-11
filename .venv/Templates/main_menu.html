@@ -69,23 +69,29 @@
     }
     
     .start-button-container {
-      text-align: center;
-      margin: 2rem 0;
+        display: flex;
+        justify-content: center; /* This will center the button horizontally */
+        align-items: center; /* This will center the button vertically if the container has a specific height */
+        margin: 2rem 0;
     }
 
     .start-button {
-      background-color: #3498db;
-      color: white;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+        background-color: #3498db;
+        color: white;
+        padding: 15px 200px;
+        font-size: 30px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        display: inline-block; /* or 'block' if you want to use 'margin: auto;' */
+        width: auto; /* Adjust this as needed, or use 'max-width' for a maximum size */
+        margin: auto; /* This will center the button if 'display' is set to 'block' */
+        }
 
     .start-button:hover {
-      background-color: #2980b9;
+        background-color: #2980b9;
     }
+
   </style>
   <title>CyberSentry</title>
 </head>
