@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About CyberSentry</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            /* Custom styles can go here */
+            .hero-section {
+                background: url('path_to_your_image.jpg') no-repeat center center;
+                background-size: cover;
+                padding: 50px 0;
+                color: white;
+            }
+
+            .about-section {
+                padding: 40px 0;
+            }
+
+            .about-heading {
+                font-weight: 700;
+                margin-bottom: 30px;
+            }
+
+            .about-text {
+                font-size: 1.1em;
+                line-height: 1.6;
+            }
+
+            /* You can choose colors that complement your main color scheme */
+            .card {
+                border: none;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .card-header {
+                background-color: #3498db;
+                color: white;
+            }
+
+            .indented {
+              margin-left: 20px; /* Adjust the value as needed */
+            }
+        
+        </style>
+    </head>
+    <body>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">CyberSentry</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero-section text-center">
+            <h1>About CyberSentry</h1>
+            <p>Learn more about our mission and technology</p>
+        </div>
+
+        
+
+        <!-- FAQ Section -->
+        <div class="container about-section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="about-heading">Malware</h2>
+                    <div class="card">
+
+                        <div class="card-header">
+                            What is malware?
+                        </div>
+                        <div class="card-body">
+                            <p class="about-text">Malware, short for malicious software, refers to any 
+                                software specifically designed to harm or exploit devices, 
+                                networks, or users.</p>
+                        </div>
+
+                        <div class="card-header">
+                            How is malware classified?
+                        </div>
+                        <div class="card-body">
+                            <p class="about-text">Malware is classified based on its intended purpose and functionality. Common classifications include:</p>
+                            
+                                <ul>
+                                    <div class="indented">
+                                        <li><b>Viruses:</b> Programs that attach themselves to legitimate files and 
+                                            replicate when those files are executed.
+                                        </li>
+
+                                        <li><b>Trojans:</b> Malicious programs disguised as legitimate software to 
+                                            deceive users into installing them. They often create backdoors for attackers.
+                                        </li>
+
+                                        <li><b>Worms:</b> Self-replicating programs that spread across networks without 
+                                            user intervention, exploiting vulnerabilities.
+                                        </li>
+
+                                        <li><b>Ransomware:</b> Encrypts a user's files and demands payment (usually in cryptocurrency) 
+                                            for their release.
+                                        </li>
+                                
+                                        <li><b>Spyware:</b> Collects user information without their knowledge, often for advertising or malicious 
+                                            purposes.
+                                        </li>
+
+                                        <li><b>Adware:</b> Displays unwanted advertisements on a user's device, often accompanied by tracking 
+                                            features.
+                                        </li>
+
+                                        <li><b>Rootkits:</b> Conceals malicious software by subverting or disabling security measures on a targeted 
+                                            system.
+                                        </li>
+
+                                        <li><b>Botnets:</b> Networks of compromised devices (bots) controlled by a single entity for various malicious 
+                                            activities, such as DDoS attacks.
+                                        </li>
+                                    </div>
+                                </ul>
+                        </div>
+
+                        <div class="card-header">
+                            Is there a guarantee that antivirus software will protect me from all types of malware?
+                        </div>
+                        <div class="card-body">
+                            <p class="about-text">While antivirus software is crucial for protection, 
+                                it is not a guarantee against all forms of malware. Cyber threats evolve, and 
+                                new malware variants are continuously created.</p>
+                        </div>
+
+                        <div class="card-header">
+                            Where can I find more information about cybersecurity?
+                        </div>
+                        <div class="card-body">
+                            <p class="about-text">Stay informed about cybersecurity 
+                                best practices, emerging threats, and industry news 
+                                through reputable sources such as cybersecurity blogs, 
+                                forums, and official websites of cybersecurity organizations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS, Popper.js, and jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.11/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
