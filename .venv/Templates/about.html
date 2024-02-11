@@ -4,12 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About CyberSentry</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles can go here */
+        .hero-section {
+            background: url('path_to_your_image.jpg') no-repeat center center;
+            background-size: cover;
+            padding: 50px 0;
+            color: white;
+        }
+
+        .about-section {
+            padding: 40px 0;
+        }
+
+        .about-heading {
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .about-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* You can choose colors that complement your main color scheme */
+        .card {
+            border: none;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
 </head>
-    <body>
-        <h2>What is CyberSentry?</h2>
-        <p>CyberSentry is an advanced Intrusion Detection System (IDS) empowered by machine learning capabilities. 
-            Our innovative solution effectively classifies and identifies malware, enhancing your digital security measures. 
-            Utilizing a Flask-based executable, CyberSentry operates seamlessly within your web environment, 
-            providing robust protection against cyber threats with unparalleled accuracy and efficiency.</p>
-    </body>
+<body>
+
+    <!-- Navigation (You can include your navbar here) -->
+
+    <!-- Hero Section -->
+    <div class="hero-section text-center">
+        <h1>About CyberSentry</h1>
+        <p>Learn more about our mission and technology</p>
+    </div>
+
+    <!-- About Section -->
+    <div class="container about-section">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="about-heading">What is CyberSentry?</h2>
+                <div class="card">
+                    <div class="card-header">
+                        Advanced Intrusion Detection
+                    </div>
+                    <div class="card-body">
+                        <p class="about-text">CyberSentry is an advanced Intrusion Detection System (IDS) empowered by machine learning capabilities. 
+                            Our innovative solution effectively classifies and identifies malware, enhancing your digital security measures. 
+                            Utilizing a Flask-based executable, CyberSentry operates seamlessly within your web environment, 
+                            providing robust protection against cyber threats with unparalleled accuracy and efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.11/dist/umd/popper.min.js"></script>
+    <script src=https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
