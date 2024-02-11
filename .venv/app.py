@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 import matplotlib.pyplot as plt
 from io import BytesIO
-import base64
 import subprocess, os
 import schedule, time
 
