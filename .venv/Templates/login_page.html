@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #131418; /* Adjusted to match the image background */
+            background: #131418;
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,12 +27,12 @@
         }
 
         h1 {
-            color: #333; /* Adjusted to match the image text color */
+            color: #333;
             margin-bottom: 20px;
         }
 
         label {
-            color: #333; /* Adjusted to match the image text color */
+            color: #333;
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
@@ -46,23 +47,31 @@
             border-radius: 4px;
         }
 
-        button {
-            background-color: #3498db; /* Changed to blue */
+        button, .back-button {
+            background-color: #3498db;
             color: white;
             padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            text-decoration: none; /* Remove underline from links styled as buttons */
+            display: inline-block; /* Align with text inputs */
+            width: auto; /* Auto width according to content */
+            margin: 0; /* Reset margin */
         }
 
-        button:hover {
-            background-color: #2980b9; /* Darker shade of blue for hover effect */
+        button:hover, .back-button:hover {
+            background-color: #2980b9;
         }
 
-        /* Added styles for the error message */
+        .back-button {
+            background-color: #555; /* A neutral, less prominent color */
+            margin-top: 20px; /* Space above the back button */
+        }
+
         p {
-            color: red; /* Error message in red */
+            color: red;
             margin-top: 20px;
         }
 
@@ -86,9 +95,12 @@
             <button type="submit">Login</button>
         </form>
 
-        {% if message %}
-            <p>{{ message }}</p>
-        {% endif %}
+        <!-- Link styled as a button for going back to the main menu -->
+        <a href="main_menu.html" class="back-button">Back to Main Menu</a>
+
+        <!-- Placeholder for potential server-side message display -->
+        <!-- Ensure your server-side logic replaces this with actual message output as needed -->
+        <!-- Example: {% if message %} <p>{{ message }}</p> {% endif %} -->
     </div>
 </body>
 </html>
