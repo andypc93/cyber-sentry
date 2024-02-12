@@ -28,9 +28,19 @@ conn.close()
 
 #===================================================
 
+
+import os
+
+model_path = 'random_forest_classifier.joblib'  # Adjust as necessary
+if os.path.exists(model_path):
+    print(f"File found: {model_path}")
+else:
+    print(f"File not found: {model_path}")
+
+
 model_path = 'random_forest_classifier.joblib'
 
-RandomForestClasifier = load(model_path)
+RandomForestClassifier = load(model_path)
 
 #===================================================
 
@@ -138,6 +148,10 @@ x_test, x_test_num, y_test = preprocess(df_new, drop_columns)
 
 le = LabelEncoder()
 
+# Fit the LabelEncoder with your labels
+le.fit(y_test)
+
+# Now that le is fitted, you can transform your labels
 y_test_label = le.transform(y_test)
 
 #===================================================
