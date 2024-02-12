@@ -13,19 +13,20 @@
     header {
       background-color: #333;
       color: #fff;
-      padding: 2rem 0;
+      padding: 20px 0;
       text-align: center;
+    }
+
+    header h1 {
+      color: #fff;
+      margin: 10px 0;
     }
 
     nav {
       background-color: #444;
       padding: 0.5rem 0;
-    }
-
-    nav .container-fluid {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: center;
     }
 
     nav ul {
@@ -34,6 +35,7 @@
       justify-content: center;
       align-items: center;
       padding: 0;
+      margin: 0;
     }
 
     nav ul li a {
@@ -70,8 +72,8 @@
     
     .start-button-container {
         display: flex;
-        justify-content: center; /* This will center the button horizontally */
-        align-items: center; /* This will center the button vertically if the container has a specific height */
+        justify-content: center;
+        align-items: center;
         margin: 2rem 0;
     }
 
@@ -83,17 +85,32 @@
         border: none;
         border-radius: 25px;
         cursor: pointer;
-        display: inline-block; /* or 'block' if you want to use 'margin: auto;' */
-        width: auto; /* Adjust this as needed, or use 'max-width' for a maximum size */
-        margin: auto; /* This will center the button if 'display' is set to 'block' */
-        }
+        display: inline-block;
+        width: auto;
+        margin: auto;
+    }
 
     .start-button:hover {
         background-color: #2980b9;
     }
-
   </style>
   <title>CyberSentry</title>
+  <script>
+    function subscribeToNewsletter(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Collect input values
+      var firstName = document.getElementById('firstname').value;
+      var email = document.getElementById('email').value;
+
+      // Simulate a successful subscription for demonstration
+      console.log("Subscribing:", firstName, email);
+      alert("Thank you for subscribing, " + firstName + "!");
+
+      // Optionally, reset the form
+      document.getElementById('newsletter-form').reset();
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -103,20 +120,19 @@
 
   <nav class="container-fluid">
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#" role="button">Help</a></li>
+      <li><a href="main_menu.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="#Contact">Contact</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="login_page.html">Login</a></li>
     </ul>
   </nav>
 
   <main class="container">
     <section>
-      <hgroup>
-        <h2>Welcome to CyberSentry</h2>
-        <h3>Your trusted partner in cyber security.</h3>
-      </hgroup>
+      <h2>Welcome to CyberSentry</h2>
+      <h3>Your trusted partner in cyber security.</h3>
       <p>At CyberSentry, we provide top-notch security solutions to protect your digital assets. Our services are designed to give you peace of mind in the evolving landscape of cyber threats.</p>
       <figure>
         <img src="https://source.unsplash.com/featured/?cybersecurity" alt="Cybersecurity" />
@@ -124,22 +140,24 @@
       </figure>
       <h3>Our Services</h3>
       <p>Explore our wide range of services tailored to safeguard your business against any cyber threat.</p>
-      <h3>Contact Us</h3>
+      <h3 id="Contact">Contact Us</h3>
       <p>Get in touch with our team of experts for any inquiries or support needed.</p>
+      <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
+      <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
     </section>
   </main>
 
   <div class="start-button-container">
-    <button class="start-button" onclick="event.preventDefault()">Start</button>
+    <button class="start-button">Start</button>
   </div>
 
   <section aria-label="Subscribe example" class="container">
     <h2>Stay Updated</h2>
     <h3>Subscribe to our newsletter</h3>
-    <form class="grid">
+    <form class="grid" id="newsletter-form" onsubmit="subscribeToNewsletter(event)">
       <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
       <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
-      <button type="submit" onclick="event.preventDefault()">Subscribe</button>
+      <button type="submit">Subscribe</button>
     </form>
   </section>
 
