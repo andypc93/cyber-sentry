@@ -1,93 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - CyberSentry</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .services-section {
-            padding: 40px 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
 
-        .services-heading {
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
 
-        .services-text {
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
+    header h1 {
+      color: #fff;
+      margin: 10px 0;
+    }
 
-        .card {
-            margin-top: 20px;
-            border: none;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
+    nav {
+      background-color: #444;
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: center;
+    }
 
-        .card-header {
-            background-color: #3498db;
-            color: white;
-        }
-    </style>
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    footer a {
+      color: #61dafb;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .start-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+    }
+
+    .start-button {
+        background-color: #3498db;
+        color: white;
+        padding: 15px 200px;
+        font-size: 30px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        display: inline-block;
+        width: auto;
+        margin: auto;
+    }
+
+    .start-button:hover {
+        background-color: #2980b9;
+    }
+  </style>
+  <title>Services - CyberSentry</title>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">CyberSentry</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Services <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Help</a>
-                </li>
+    <header>
+        <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
+        <h1>CyberSentry</h1>
+      </header>
+    
+      <nav class="container-fluid">
+        <ul>
+          <li><a href="main_menu.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="login_page.html">Login</a></li>
+        </ul>
+      </nav>
+      <main class="container">
+        <section>
+            <h2>Our Services</h2>
+            <p>An Intrusion Detection System (IDS) equipped with machine learning capabilities, particularly using the Random Forest algorithm, offers sophisticated cybersecurity services:</p>
+            <ul>
+                <li><strong>Advanced Threat Detection:</strong> Identifies unusual patterns and known threats in network traffic.</li>
+                <li><strong>Adaptive Learning:</strong> Dynamically updates its threat detection models based on new data.</li>
+                <li><strong>Enhanced Accuracy with Random Forest:</strong> Utilizes multiple decision trees to improve detection accuracy.</li>
+                <li><strong>Scalability and Flexibility:</strong> Scales to accommodate the volume of data in various network architectures.</li>
+                <li><strong>Real-time Protection:</strong> Offers the capability to respond to threats in real-time.</li>
+                <li><strong>Reporting and Analytics:</strong> Provides detailed insights into detected threats and trends in attack methods.</li>
             </ul>
-        </div>
-    </nav>
+            <p>By leveraging the Random Forest algorithm, our IDS system enhances cybersecurity measures with its ability to process and learn from both categorical and numerical data, making it versatile for different types of network data. This approach significantly reduces false positives and ensures reliable protection against evolving cyber threats.</p>
+        </section>
+    </main>
 
-    <div class="container services-section">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="services-heading">Our Services</h2>
-                <p class="services-text">CyberSentry is a state-of-the-art Intrusion Detection System (IDS) designed to protect your digital infrastructure from cyber threats. Our solution employs advanced machine learning algorithms to detect and alert on potential security breaches, offering real-time protection for your network.</p>
-                
-                <h3>Target Users</h3>
-                <div class="card">
-                    <div class="card-header">Cybersecurity Professionals</div>
-                    <div class="card-body">
-                        <p class="services-text">Highly skilled in threat analysis, mitigation strategies, and familiar with advanced security systems. They are the ones usually involved in the configuration and management of CyberSentry, ensuring it meets organizational security policies.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">Network Administrators</div>
-                    <div class="card-body">
-                        <p class="services-text">Possess a good understanding of network topologies, firewalls, and security protocols. Responsible for the daily operational management of CyberSentry within the network environment.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">End-Users</div>
-                    <div class="card-body">
-                        <p class="services-text">Ranging from non-technical staff to employees with basic IT knowledge, these users primarily interact with CyberSentry through its reporting mechanisms and benefit directly from its security features.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <footer>
+        <small>
+          <a href="#">Privacy Policy</a> • <a href="#">Terms of Use</a>
+        </small>
+    </footer>
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.11/dist/umd/popper.min.js"></script>
