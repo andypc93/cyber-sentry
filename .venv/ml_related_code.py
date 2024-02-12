@@ -19,7 +19,7 @@ conn = sql.connect(db_path)
 
 cursor = conn.cursor()
 
-
+#adwdw
 df_new = pd.read_sql_query("SELECT * FROM testing_data", conn)
 
 cursor.close()
