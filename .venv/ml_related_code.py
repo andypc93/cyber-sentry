@@ -1,15 +1,13 @@
 
 
 import pandas as pd
-import matplotlib.pyplot as plt
 import sqlite3 as sql
 
 from joblib import load
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score
 
-
-import os
-print("Current Working Directory:", os.getcwd())
+#===================================================
 
 #db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
 
@@ -19,7 +17,6 @@ conn = sql.connect(db_path)
 
 cursor = conn.cursor()
 
-#adwdw
 df_new = pd.read_sql_query("SELECT * FROM testing_data", conn)
 
 cursor.close()
@@ -28,8 +25,8 @@ conn.close()
 
 #===================================================
 
-
 import os
+print("Current Working Directory:", os.getcwd())
 
 model_path = 'random_forest_classifier.joblib'  # Adjust as necessary
 if os.path.exists(model_path):
@@ -37,6 +34,7 @@ if os.path.exists(model_path):
 else:
     print(f"File not found: {model_path}")
 
+#===================================================
 
 model_path = 'random_forest_classifier.joblib'
 
@@ -155,9 +153,9 @@ le.fit(y_test)
 y_test_label = le.transform(y_test)
 
 #===================================================d
+print(x_test.head(20))
 
-
-y_pred = RandomForestClasifier.predict(x_test)
+y_pred = RandomForestClassifier.predict(x_test)
 
 # Calculate accuracy
 accuracy = accuracy_score(y_test_label, y_pred)
