@@ -85,7 +85,9 @@
       <li><a href="main_menu.html#Contact">Contact</a></li>
       <li><a href="faq.html">FAQ</a></li>
        <!-- New item for user profile -->
-      <li style="margin-left:auto;"><a href="login_page.html"><i class="fas fa-user"></i> Your Profile</a></li>
+       <li id="profileTab"><a href="login_page.html"><i class="fas fa-user"></i> Your Profile</a></li>
+       <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+       
     </ul>
   </nav>
 
@@ -109,5 +111,48 @@
       <a>2024 CyberSentry. All rights reserved.</a>
   </small>
 </footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const username = localStorage.getItem('username');
+      if (username) {
+          const profileLink = document.querySelector('nav ul li a[href="login_page.html"]');
+          if (profileLink) {
+              profileLink.innerHTML = `<i class="fas fa-user"></i> ${username}`;
+          }
+      }
+  });
+  </script>  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const username = localStorage.getItem('username');
+    const profileTab = document.getElementById('profileTab');
+    const logoutTab = document.getElementById('logoutTab');
+
+    if (username) {
+        // User is logged in, show Logout option
+        if (profileTab) profileTab.style.display = 'none';
+        if (logoutTab) logoutTab.style.display = 'block';
+        
+        // Optionally, update profile link to show username
+        if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
+    } else {
+        // No user logged in, show "Your Profile"
+        if (profileTab) profileTab.style.display = 'block';
+        if (logoutTab) logoutTab.style.display = 'none';
+    }
+
+    const logoutLink = document.getElementById('logout');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('username'); // Clear user session
+            // Update UI immediately after logout
+            if (profileTab) profileTab.style.display = 'block';
+            if (logoutTab) logoutTab.style.display = 'none';
+            window.location.href = 'login_page.html'; // Redirect to login page
+        });
+    }
+});
+  </script>
 </body>
 </html>

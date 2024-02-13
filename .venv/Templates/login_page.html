@@ -81,12 +81,28 @@
         }
     </style>
 </head>
+<script>
+    function handleLogin(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        if(username === 'user' && password === 'password') {
+            // Assuming you'll use localStorage for simplicity
+            localStorage.setItem('username', username);
+            window.location.href = 'main_menu.html'; // Redirect to main page
+        } else {
+            alert('Incorrect username or password!');
+        }
+    }
+</script>
 <body>
     <div class="login-container">
         <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
         <h1>CyberSentry</h1>
 
-        <form method="POST" action="{{ url_for('login') }}">
+        <form onsubmit="handleLogin(event)">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
 
