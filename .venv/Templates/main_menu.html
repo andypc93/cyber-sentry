@@ -146,19 +146,25 @@
 </script>
   <script>
     function subscribeToNewsletter(event) {
-      event.preventDefault(); // Prevent the default form submission
+  event.preventDefault(); // Prevent the default form submission
 
-      // Collect input values
-      var firstName = document.getElementById('firstname').value;
-      var email = document.getElementById('email').value;
+  var firstName = document.getElementById('firstname').value;
+  var email = document.getElementById('email').value;
 
-      // Simulate a successful subscription for demonstration
-      console.log("Subscribing:", firstName, email);
-      alert("Thank you for subscribing, " + firstName + "!");
+  fetch("https://script.google.com/macros/s/AKfycbwTsohIvMDjojeA7a59-7QhJM1YT-8T9wpKA3BKGHCljcXGXnXXdIADq77MPnWwbEXRfw/exec", {
+    method: 'POST',
+    mode: 'no-cors', // Important to prevent CORS errors
+    contentType: 'application/json',
+    body: JSON.stringify({firstName: firstName, email: email})
+  })
+  .then(response => {
+    console.log('Subscription successful');
+    alert("Thank you for subscribing, " + firstName + "!");
+    document.getElementById('newsletter-form').reset(); // Optionally, reset the form
+  })
+  .catch(error => console.error('Error:', error));
+}
 
-      // Optionally, reset the form
-      document.getElementById('newsletter-form').reset();
-    }
   </script>
 </head>
 <body>
