@@ -107,9 +107,53 @@
 
     /* Change the background color of the dropdown button when the dropdown content is shown */
     .dropdown:hover .dropbtn {background-color: #555;}
+    .team-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%; /* Adjust the width of the team-section to fit its content */
+    }
+
+    .team-member {
+      display: flex;
+      align-items: center; /* Keep this to align the image and member-info vertically */
+      justify-content: flex-start; /* Keep this to align the image and member-info horizontally */
+      width: 100%;
+      max-width: 600px; /* Adjust the width of the team-member to fit its content */
+      margin: 0 auto; /* Center the team-member */
+    }
+
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover; /* This will cover the area without distorting the aspect ratio */
+      margin-right: 10px; /* Space between image and member-info */
+      border-radius: 50%; /* Makes images circular, adjust or remove as needed */
+      border: 2px solid #ddd; /* Adds a border around the image, adjust color as needed */
+    }
+
+    .team-member h3, .team-member p {
+      margin: 0;
+    }
+
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      margin-right: 20px; /* Space between image and member-info */
+      object-fit: cover; /* This will cover the area without distorting the aspect ratio */
+    }
+
+    .member-info {
+      display: flex;
+      flex-direction: column; /* Stack name and role vertically */
+      flex-grow: 1; /* Expand to fill the remaining space */
+      text-align: center; /* Center text */
+    }
 
   </style>
-  <title>CyberSentry</title>
+  <title>About - CyberSentry</title>
 </head>
 <body>
   <header>
@@ -135,7 +179,45 @@
        
     </ul>
   </nav>
-
+  <div class="team-section">
+    <h2>Our Team</h2>
+    <div class="team-member">
+      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/andres.png" alt="Andres Perez Cabezas">
+      <div class="member-info">
+        <h3>Andres Perez Cabezas</h3>
+        <p>Senior Backend Developer</p>
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/roberto.JPG">
+      <div class="member-info">
+      <h3>Roberto Vivas Gotay</h3>
+      <p>Secondary Backend Developer and Frontend Developer</p>
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/diamaris.png" alt="Diamaris Gonzalez Rodriguez">
+      <div class="member-info">
+      <h3>Diamaris Gonzalez Rodriguez</h3>
+      <p>Senior Frontend Developer</p>
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/gadiel.png" alt="Gadiel Valle Melendez">
+      <div class="member-info">
+      <h3>Gadiel Valle Melendez</h3>
+      <p>Documentation Specialist</p>
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/luis.png" alt="Luis Gomez Laureano" style="float:left; width:100px; height:100px; margin-right:20px;">
+      <div class="member-info">
+      <h3>Luis Gomez Laureano</h3>
+      <p>Secondary Frontend Developer</p>
+      </div>
+    </div>
+  </div>
+  
   <div class="container">
     <h2>Our Product</h2>
     <p>CyberSentry is a state-of-the-art Intrusion Detection System (IDS) designed to protect digital infrastructures from cyber threats. By employing advanced machine learning algorithms, CyberSentry detects and alerts on potential security breaches, offering real-time protection for networks.</p>
