@@ -4,6 +4,7 @@ import pandas as pd
 import sqlite3 as sql
 
 from joblib import load
+from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 
@@ -17,7 +18,8 @@ conn = sql.connect(db_path)
 
 cursor = conn.cursor()
 
-df_new = pd.read_sql_query("SELECT * FROM testing_data", conn)
+df_test = pd.read_sql_query("SELECT * FROM testing_data", conn)
+df_train = pd.read_sql_query("SELECT * FROM training_data", conn)
 
 cursor.close()
 
@@ -36,9 +38,9 @@ else:
 
 #===================================================
 
-model_path = 'random_forest_classifier.joblib'
+model_path = "randomForest_model.joblib"
 
-RandomForestClassifier = load(model_path)
+RandomForest_model = load(model_path)
 
 #===================================================
 
@@ -89,7 +91,8 @@ columns = [
 ]
 
 
-df_new.columns = columns
+df_test.columns = columns
+df_train.columns = columns
 
 #===================================================
 
@@ -107,10 +110,16 @@ class_attack = class_DoS + class_Probe + class_U2R + class_R2L
 
 #===================================================
 
-df_new['class'] = df_new['outcome']
-df_new.loc[:, 'class'] = df_new['class'].replace(class_attack, 'attack')
+df_train['class'] = df_train['outcome']
+df_train['class'].replace(class_attack, value='attack', inplace=True)
 
-df_new.drop(columns=["outcome", "level"], inplace =True)
+df_train.drop(columns=["outcome", "level"], inplace =True)
+
+df_test['class'] = df_test['outcome']
+df_test['class'].replace(class_attack, value='attack', inplace=True)
+
+df_test.drop(columns=["outcome", "level"], inplace =True)
+
 
 #===================================================
 
@@ -138,36 +147,97 @@ drop_columns = ['srv_serror_rate',
  'num_outbound_cmds',
  'su_attempted']
 
+X_train, X_train_num, Y_train = preprocess(df_train, drop_columns)
+
+x_test, x_test_num, y_test = preprocess(df_test, drop_columns)
+
 #===================================================
 
-x_test, x_test_num, y_test = preprocess(df_new, drop_columns)
+# Instantiate the LabelEncoder
+label_encoder = LabelEncoder()
+
+# Fit and transform Y_train
+# This will convert the categories to 0 and 1
+Y_train_label = label_encoder.fit_transform(Y_train)
+
+# Transform y_test using the same encoder
+# This ensures consistency in encoding between training and test sets
+y_test_label = label_encoder.transform(y_test)
 
 #===================================================
 
-le = LabelEncoder()
+numerical_columns = x_test.select_dtypes(include=['number']).columns
 
-# Fit the LabelEncoder with your labels
-le.fit(y_test)
 
-# Now that le is fitted, you can transform your labels
-y_test_label = le.transform(y_test)
+def scale_data_with_training(X_train, X_test, numerical_columns):
 
-#===================================================d
-print(x_test.head(20))
+    scaler = StandardScaler()
+    
+    # Fit the scaler on the numerical columns of the training data and transform them
+    X_train_numerical_scaled = scaler.fit_transform(X_train[numerical_columns])
+    
+    # Transform the numerical columns of the testing data using the same scaler
+    X_test_numerical_scaled = scaler.transform(X_test[numerical_columns])
+    
+    # Convert the scaled arrays back to DataFrames
+    X_train_numerical_scaled_df = pd.DataFrame(X_train_numerical_scaled, columns=numerical_columns, index=X_train.index)
+    X_test_numerical_scaled_df = pd.DataFrame(X_test_numerical_scaled, columns=numerical_columns, index=X_test.index)
+    
+    # Drop the original numerical columns from the original DataFrames
+    X_train_dropped = X_train.drop(columns=numerical_columns)
+    X_test_dropped = X_test.drop(columns=numerical_columns)
+    
+    # Concatenate the scaled numerical DataFrames with the original DataFrames (without the numerical columns)
+    X_train_scaled = pd.concat([X_train_dropped, X_train_numerical_scaled_df], axis=1)
+    X_test_scaled = pd.concat([X_test_dropped, X_test_numerical_scaled_df], axis=1)
+    
+    return X_train_scaled, X_test_scaled
 
-y_pred = RandomForestClassifier.predict(x_test)
+#===================================================
 
-# Calculate accuracy
+X_train_scaled, x_test_scaled = scale_data_with_training(X_train, x_test, numerical_columns)
+
+#===================================================
+
+def one_hot_encode_and_align(train_df, test_df, columns_to_encode):
+    # Combine train and test dataframes temporarily to ensure consistent one-hot encoding
+    combined_df = pd.concat([train_df, test_df], keys=['train', 'test'])
+    
+    # One-hot encode the specified columns
+    combined_df_encoded = pd.get_dummies(combined_df, columns=columns_to_encode)
+    
+    # Split the combined dataframe back into the original train and test dataframes
+    train_df_encoded = combined_df_encoded.xs('train')
+    test_df_encoded = combined_df_encoded.xs('test')
+    
+    # Align the test dataframe to the training dataframe, filling missing columns with zeros
+    test_df_encoded = test_df_encoded.reindex(columns=train_df_encoded.columns, fill_value=0)
+    
+    return train_df_encoded, test_df_encoded
+
+# Apply the function to your dataframes
+X_train_encoded, x_test_encoded = one_hot_encode_and_align(X_train_scaled, x_test_scaled, ["protocol_type", "service", "flag"])
+
+#===================================================
+
+# Assuming RandomForest_model, x_test_encoded, and y_test_label are already defined
+
+# Predict on the test dataset
+y_pred = RandomForest_model.predict(x_test_encoded)
+
+# Create a Series for predictions to align with x_test_encoded's index
+predictions_df = pd.Series(y_pred, index=x_test_encoded.index, name='Predicted')
+
+# Assuming '1' represents an attack
+attack_label = 1
+
+# Identify rows classified as an attack
+# Ensure you're using the encoded version if that's what was used for prediction
+attacks_df = x_test_encoded[predictions_df == attack_label]
+
+# Optional: If you want to display only a subset of rows to avoid outputting a very large dataframe
+print(attacks_df.head())  # Adjust .head() parameter as needed to display more rows
+
+# Calculate and print accuracy
 accuracy = accuracy_score(y_test_label, y_pred)
 print(f"Accuracy: {accuracy}")
-
-# Detailed classification report
-print(classification_report(y_test_label, y_pred, target_names=le.classes_))
-
-#===================================================
-
-
-#===================================================
-
-
-#===================================================

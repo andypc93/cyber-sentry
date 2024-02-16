@@ -45,42 +45,6 @@ def about():
 def malware():
     return render_template('faq.html')  
 
-# Ruta para la grafica.
-# @app.route('/plot') 
-# def plot():
-    # Generate some sample data for plotting
-#     x = [1, 2, 3, 4, 5]
-#     y = [2, 3, 5, 7, 11]
-
-    # Create a simple line plot
-#     plt.plot(x, y)
-#     plt.xlabel('X')
-#     plt.ylabel('Y')
-#     plt.title('Simple Line Plot')
-
-    # Save the plot to a BytesIO object
-#    buffer = BytesIO()
-#    plt.savefig(buffer, format='png')
-#    buffer.seek(0)
-#    plt.close()
-
-    # Encode the plot image to base64x
-#    plot_data = base64.b64encode(buffer.getvalue()).decode('utf-8')
-
-    # Return the plot data as JSON
-#    return jsonify({'plot_data': plot_data})
-
-# Ruta para la lista de empleados.
-# @app.route('/employee_info')
-# def employee_info():
-    # Dummy employee information (replace with actual data retrieval logic)
-#     employees = [
-#         {'name': 'John Doe', 'id': '001'},
-#         {'name': 'Jane Smith', 'id': '002'},
-#         {'name': 'Alice Johnson', 'id': '003'}
-#     ]
-#     return jsonify({'employee_info': employees})
-
 def run_notebook():
     notebook_path = 'https://colab.research.google.com/drive/1PB8WKx0WVytyZdkuCBN7rqUTdXETmeAr#scrollTo=OazQvAJXOcC9'
     command = f'jupyter nbconvert --to notebook --execute {notebook_path}'
