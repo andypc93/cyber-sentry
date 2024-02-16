@@ -245,7 +245,7 @@ print(f"Accuracy: {accuracy}")
 #===================================================
 
 # Make sure `full_path` includes the file name and extension, not just the directory path
-full_path = 'C:/Users/andre/OneDrive/Documents/GitHub/cyber-centry/.venv/Templates/data_frame/data_frame.html'  # Note the .html extension
+full_path = 'C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/data_frame/data_frame.html'  # Note the .html extension
 
 
 html_content = attacks_df.to_html()
