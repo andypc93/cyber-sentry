@@ -226,17 +226,17 @@ X_train_encoded, x_test_encoded = one_hot_encode_and_align(X_train_scaled, x_tes
 y_pred = RandomForest_model.predict(x_test_encoded)
 
 # Create a Series for predictions to align with x_test_encoded's index
-predictions_df = pd.Series(y_pred, index=x_test_encoded.index, name='Predicted')
+predictions_df = pd.Series(y_pred, index=x_test.index, name='Predicted')
 
 # Assuming '1' represents an attack
 attack_label = 1
 
 # Identify rows classified as an attack
 # Ensure you're using the encoded version if that's what was used for prediction
-attacks_df = x_test_encoded[predictions_df == attack_label]
+attacks_df = x_test[predictions_df == attack_label]
 
 # Optional: If you want to display only a subset of rows to avoid outputting a very large dataframe
-print(attacks_df)  # Adjust .head() parameter as needed to display more rows
+print(attacks_df.head(100))  # Adjust .head() parameter as needed to display more rows
 
 # Calculate and print accuracy
 accuracy = accuracy_score(y_test_label, y_pred)
