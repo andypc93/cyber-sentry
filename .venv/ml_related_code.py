@@ -236,7 +236,7 @@ attack_label = 1
 attacks_df = x_test[predictions_df == attack_label]
 
 # Optional: If you want to display only a subset of rows to avoid outputting a very large dataframe
-print(attacks_df.head(100))  # Adjust .head() parameter as needed to display more rows
+print(attacks_df.shape)  # Adjust .head() parameter as needed to display more rows
 
 # Calculate and print accuracy
 accuracy = accuracy_score(y_test_label, y_pred)
