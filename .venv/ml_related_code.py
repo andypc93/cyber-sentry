@@ -151,6 +151,7 @@ X_train, X_train_num, Y_train = preprocess(df_train, drop_columns)
 
 x_test, x_test_num, y_test = preprocess(df_test, drop_columns)
 
+
 #===================================================
 
 # Instantiate the LabelEncoder
@@ -220,7 +221,6 @@ X_train_encoded, x_test_encoded = one_hot_encode_and_align(X_train_scaled, x_tes
 
 #===================================================
 
-# Assuming RandomForest_model, x_test_encoded, and y_test_label are already defined
 
 # Predict on the test dataset
 y_pred = RandomForest_model.predict(x_test_encoded)
@@ -236,8 +236,20 @@ attack_label = 1
 attacks_df = x_test_encoded[predictions_df == attack_label]
 
 # Optional: If you want to display only a subset of rows to avoid outputting a very large dataframe
-print(attacks_df.head())  # Adjust .head() parameter as needed to display more rows
+print(attacks_df)  # Adjust .head() parameter as needed to display more rows
 
 # Calculate and print accuracy
 accuracy = accuracy_score(y_test_label, y_pred)
 print(f"Accuracy: {accuracy}")
+
+#===================================================
+
+# Make sure `full_path` includes the file name and extension, not just the directory path
+full_path = 'C:/Users/andre/OneDrive/Documents/GitHub/cyber-centry/.venv/Templates/data_frame/data_frame.html'  # Note the .html extension
+
+
+html_content = attacks_df.to_html()
+
+# Write the HTML content to the file
+with open(full_path, 'w') as file:
+    file.write(html_content)
