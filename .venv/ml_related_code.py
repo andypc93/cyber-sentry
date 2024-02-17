@@ -244,12 +244,19 @@ print(f"Accuracy: {accuracy}")
 
 #===================================================
 
-# Make sure `full_path` includes the file name and extension, not just the directory path
-full_path = 'C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/data_frame/data_frame.html'  # Note the .html extension
+#Split the DataFrame into chunks of 50 entries
+chunk_size = 50
+chunks = [attacks_df[i:i + chunk_size] for i in range(0, attacks_df.shape[0], chunk_size)]
 
+# The base directory path without the file name
+base_path = 'C:/Users/andre/OneDrive/Documents/GitHub/cyber-centry/.venv/templates/data_frame/'
 
-html_content = attacks_df.to_html()
+# Ensure the base directory exists
+os.makedirs(base_path, exist_ok=True)
 
-# Write the HTML content to the file
-with open(full_path, 'w') as file:
-    file.write(html_content)
+# Write each chunk to a separate HTML file
+for i, chunk in enumerate(chunks):
+    full_path = os.path.join(base_path, f'data_frame_chunk_{i+1}.html')
+    html_content = chunk.to_html()
+    with open(full_path, 'w') as file:
+        file.write(html_content)
