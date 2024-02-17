@@ -2,7 +2,7 @@
 
 import pandas as pd
 import sqlite3 as sql
-
+import matplotlib.pyplot as plt
 from joblib import load
 from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import LabelEncoder
@@ -242,12 +242,15 @@ print(attacks_df.shape)  # Adjust .head() parameter as needed to display more ro
 accuracy = accuracy_score(y_test_label, y_pred)
 print(f"Accuracy: {accuracy}")
 
+
 #===================================================
 
 #Split the DataFrame into chunks of 50 entries
 chunk_size = 50
 chunks = [attacks_df[i:i + chunk_size] for i in range(0, attacks_df.shape[0], chunk_size)]
 
+print(chunks)
+print(attacks_df.shape[0])
 # The base directory path without the file name
 base_path = 'C:/Users/andre/OneDrive/Documents/GitHub/cyber-centry/.venv/templates/data_frame/'
 
@@ -260,3 +263,50 @@ for i, chunk in enumerate(chunks):
     html_content = chunk.to_html()
     with open(full_path, 'w') as file:
         file.write(html_content)
+
+#===============================================
+        
+# Set larger font sizes for all plots
+plt.rc('font', size=40)          # controls default text sizes
+plt.rc('axes', titlesize=40)     # fontsize of the axes title
+plt.rc('axes', labelsize=40)     # fontsize of the x and y labels
+plt.rc('xtick', labelsize=25)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=25)    # fontsize of the tick labels
+plt.rc('legend', fontsize=40)    # legend fontsize
+plt.rc('figure', titlesize=40)   # fontsize of the figure title
+
+plt.figure(figsize=(40, 20))
+
+# Define colors for each plot
+colors_protocol_type = ['blue', 'green', 'red']
+colors_service = ['cyan', 'magenta', 'yellow', 'black', 'white', 'orange', 'grey', 'blue', 'green', 'red']
+colors_flag = ['purple', 'pink', 'lightblue']
+
+# Plot for protocol_type with colors
+plt.subplot(131)
+attacks_df["protocol_type"].value_counts().plot(kind='bar', label='protocol type', color=colors_protocol_type)
+plt.xlabel('Protocol Type', fontsize=50)
+plt.title('Protocol Type Counts', fontsize=50)
+
+# Plot for service with colors
+plt.subplot(132)
+attacks_df['service'].value_counts().head(10).plot(kind='bar', color=colors_service)
+plt.xlabel('Service', fontsize=50)
+plt.title('Top 10 Services', fontsize=50)
+
+# Plot for flag with colors
+plt.subplot(133)
+attacks_df["flag"].value_counts().plot(kind='bar', color=colors_flag)
+plt.xlabel('Flag', fontsize=50)
+plt.title('Flag Counts', fontsize=50)
+
+file_path = 'C:/Users/andre/OneDrive/Documents/GitHub/cyber-centry/.venv/templates/images/plot1.png'
+
+plt.savefig(file_path)
+plt.show()
+plt.close()  # Close the figure after saving to free up memory
+
+
+
+
+
