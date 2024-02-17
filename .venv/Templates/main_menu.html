@@ -131,6 +131,21 @@
 
     /* Change the background color of the dropdown button when the dropdown content is shown */
     .dropdown:hover .dropbtn {background-color: #555;}
+
+    .content-wrapper {
+    min-height: 0; /* Remove any minimum height constraint if set */
+    overflow: visible; /* Make sure that overflow content is not hidden */
+}
+
+    #plot-image {
+    display: block; /* Displayed when the user is logged in */
+    width: auto; /* Adjust width to auto to maintain aspect ratio without specifying exact size */
+    max-width: 100%; /* Limit the width to not exceed the container's width */
+    height: auto; /* Auto height to maintain aspect ratio */
+    margin: 20px auto; /* Center the image with margin */
+    object-fit: contain; /* Ensure the entire image fits within the given dimensions */
+}
+
   </style>
   <title>Main Menu - CyberSentry</title>
   <script>
@@ -190,16 +205,15 @@
       <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
   </nav>
-  <div id="dataframe-container">
-  
-    <!-- Other content of your main_menu.html -->
-    <!-- <section>
-        <h2>DataFrame Display</h2>
-        <iframe src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/data_frame/data_frame_chunk_1.html" width="100%" height="500" style="border:none;"></iframe>
-    </section> -->
-  </div>
-  <!-- Button for loading more DataFrame parts -->
-<button id="load-more" style="display:none;">Load More Rows</button>
+  <!-- Parent container for the image and DataFrame -->
+<div class="content-wrapper">
+  <!-- Image to be displayed for logged-in users -->
+  <img id="plot-image" src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/images/plot1.png" style="display: none;" alt="Plot Image">
+  <!-- Container for the DataFrame -->
+  <div id="dataframe-container"></div>
+  <!-- Load More Rows button -->
+  <button id="load-more" style="display: none;">Load More Rows</button>
+</div>
 </main>
   <main class="container">
     <section>
@@ -240,6 +254,7 @@
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     const username = localStorage.getItem('username');
+    const plotImage = document.getElementById('plot-image');
     const loadMoreButton = document.getElementById('load-more');
     const dataframeContainer = document.getElementById('dataframe-container');
     const profileTab = document.getElementById('profileTab');
@@ -253,10 +268,15 @@
         // Optionally, update profile link to show username
         if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
 
+        plotImage.style.display = 'block'; // Show the plot image
         // User is logged in, load the first part of the DataFrame
         loadDataFramePart(1);
         loadMoreButton.style.display = 'inline-block'; // Show the load more button
 
+    }else{
+        // User is not logged in, ensure the plot image is not displayed
+        plotImage.style.display = 'none'; // Hide the plot image
+        loadMoreButton.style.display = 'none'; // Hide the load more button
     }
     let currentPart = 1; // Keep track of the current part being displayed
     const maxParts = 282; // Adjust based on the total number of parts you have
