@@ -1,4 +1,8 @@
-from flask import Flask, render_template, url_for
+import pandas as pd
+import subprocess
+
+from flask import Flask, render_template, url_for, request
+
 
 app = Flask(__name__)
 
@@ -17,6 +21,18 @@ def services():
 @app.route('/faq')
 def faq():
     return render_template('faq.html')
+
+
+@app.route('/run_script')
+def run_script():
+    try:
+        result = subprocess.run(['python', 'ml_back_end.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+        # result.stdout contains the output of the script.py if it prints anything
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        return f"An error occurred while trying to run script.py: {e.stderr}", 500
+
+from ml_back_end import attacks_df as df
 
 @app.route('/dataframe')
 def show_dataframe():
