@@ -209,29 +209,19 @@
 
     <head>
       <title>Table Display</title>
-  </head>
-  <body>
-      <input type="range" id="rowSlider" min="1" max="50" value="50" oninput="updateTable(this.value);">
-      <span id="sliderValue">50</span> rows
+    </head>
+    <body>
       <div id="tableDiv">
           {{ df_html|safe }}
       </div>
+      <div>
+          <!-- Pagination buttons -->
+          <a href="/?page={{ page - 1 }}">Previous</a>
+          <span>Page {{ page }}</span>
+          <a href="/?page={{ page + 1 }}">Next</a>
+      </div>
   
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script>
-          function updateTable(rows) {
-              document.getElementById('sliderValue').textContent = rows;
-              // Use AJAX to fetch the updated table from the server
-              $.ajax({
-                  url: '/update_table', // Flask route that will return the updated table HTML
-                  type: 'GET',
-                  data: {'rows': rows},
-                  success: function(response) {
-                      $('#tableDiv').html(response); // Update the table with the new HTML
-                  }
-              });
-          }
-      </script>
 
 
 
@@ -270,7 +260,6 @@
 
         plotImage.style.display = 'block'; // Show the plot image
         // User is logged in, load the first part of the DataFrame
-        loadDataFramePart(1);
         loadMoreButton.style.display = 'inline-block'; // Show the load more button
 
     }else{
@@ -281,36 +270,6 @@
     let currentPart = 1; // Keep track of the current part being displayed
     const maxParts = 282; // Adjust based on the total number of parts you have
      
-    loadMoreButton.addEventListener('click', function() {
-        if (currentPart < maxParts) {
-            currentPart++;
-            loadDataFramePart(currentPart);
-            if (currentPart >= maxParts) {
-                loadMoreButton.style.display = 'none'; // Hide button if no more parts to load
-            }
-        }
-    });
-
-    function loadDataFramePart(part) {
-      const rowsPerChunk = 77;
-      const totalRows = 14100;
-      const totalParts = Math.ceil(totalRows / rowsPerChunk); // Adjust based on rows per chunk
-
-      if (part > totalParts) {
-          console.error("Trying to load a part that doesn't exist:", part);
-          return; // Prevent loading more parts than needed
-      }
-      const iframe = document.createElement('iframe');
-      iframe.src = `C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/data_frame/data_frame_chunk_${part}.html`;
-      iframe.width = '100%';
-      iframe.height = '500'; // Adjust as needed
-      iframe.style.border = 'none';
-      const dataframeContainer = document.getElementById('dataframe-container');
-      // Clear previous content and append new iframe
-      dataframeContainer.innerHTML = ''; // Optionally clear previous iframe to avoid accumulation
-      dataframeContainer.appendChild(iframe);
-    }
-
     const logoutLink = document.getElementById('logout');
     if (logoutLink) {
         logoutLink.addEventListener('click', function(e) {
