@@ -187,10 +187,6 @@
     <section>
       <h2>Welcome to CyberSentry</h2>
       <!-- main_menu.html -->
-      <div>
-        {{ df_html|safe }}
-      </div>
-
       <h3>Your trusted partner in Cyber Security.</h3>
       <p>At CyberSentry, we provide top-notch security solutions to protect your digital assets. Our services are designed to give you peace of mind in the evolving landscape of cyber threats.</p>
       <figure>
@@ -208,11 +204,38 @@
       <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
       <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
     </section>
+
+
+
+    <head>
+      <title>Table Display</title>
+  </head>
+  <body>
+      <input type="range" id="rowSlider" min="1" max="50" value="50" oninput="updateTable(this.value);">
+      <span id="sliderValue">50</span> rows
+      <div id="tableDiv">
+          {{ df_html|safe }}
+      </div>
+  
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          function updateTable(rows) {
+              document.getElementById('sliderValue').textContent = rows;
+              // Use AJAX to fetch the updated table from the server
+              $.ajax({
+                  url: '/update_table', // Flask route that will return the updated table HTML
+                  type: 'GET',
+                  data: {'rows': rows},
+                  success: function(response) {
+                      $('#tableDiv').html(response); // Update the table with the new HTML
+                  }
+              });
+          }
+      </script>
+
+
+
   </main>
-
-<section
-
-
 
   <section aria-label="Subscribe example" class="container">
     <h2>Stay Updated</h2>
