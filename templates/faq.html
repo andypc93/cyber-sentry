@@ -3,9 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Path de Roberto -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="stylesheet" href="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/css/pico.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -78,17 +76,20 @@
 
         /* The container <div> - needed to position the dropdown content */
         .dropdown {
-        display: inline-block;
+            position: relative; /* This ensures the dropdown is positioned relative to its parent */
         }
 
         /* Dropdown Content (Hidden by Default) */
         .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #444;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
+            display: none;
+            position: absolute;
+            background-color: #444;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%; /* This positions the dropdown right below the button */
+            border-radius: 15px;
+            left: 0;
         }
 
         /* Links inside the dropdown */
@@ -119,14 +120,14 @@
         
           <nav class="container-fluid">
             <ul>
-              <li><a href="main_menu.html">Home</a></li>
-              <li><a href="about.html">About</a></li>
+              <li><a href="{{ url_for('menu') }}">Home</a></li>
+              <li><a href="{{ url_for('about') }}">About</a></li>
               <li class="dropdown">
                 <a href="#" class="dropbtn">Help</a>
                 <div class="dropdown-content">
-                  <a href="services.html">Services</a>
-                  <a href="main_menu.html#Contact">Contact</a>
-                  <a href="faq.html">FAQ</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('menu') }}#Contact">Contact</a>
+                    <a href="{{ url_for('faq') }}">FAQ</a>
                 </div>
               </li>
                <!-- New item for user profile -->

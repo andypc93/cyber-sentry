@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <!-- Path de Roberto -->
-    <link rel="stylesheet" href="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -113,7 +112,7 @@
         </form>
 
         <!-- Link styled as a button for going back to the main menu -->
-        <a href="main_menu.html" class="back-button">Back to Main Menu</a>
+        <li><a href="{{ url_for('menu') }}" class="back-button">Back to Main Menu</a>
 
         <!-- Placeholder for potential server-side message display -->
         <!-- Ensure your server-side logic replaces this with actual message output as needed -->

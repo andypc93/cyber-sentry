@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Path de Roberto -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/css/pico.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -76,9 +74,8 @@
       text-align: left;
     }
 
-    /* The container <div> - needed to position the dropdown content */
     .dropdown {
-      display: inline-block;
+      position: relative; /* This ensures the dropdown is positioned relative to its parent */
     }
 
     /* Dropdown Content (Hidden by Default) */
@@ -89,6 +86,9 @@
       min-width: 160px;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
+      top: 100%; /* This positions the dropdown right below the button */
+      border-radius: 15px;
+      left: 0;
     }
 
     /* Links inside the dropdown */
@@ -152,6 +152,23 @@
       text-align: center; /* Center text */
     }
 
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+    /* Other styles... */
+
+    /* New style for making 'Our Team' heading larger */
+    .team-section h2 {
+      font-size: 50px; /* Adjust the size as needed */
+      font-weight: bold; /* Optional: to make it bolder */
+    }
+
+    .team-member {
+      padding-bottom: 30px; /* Add padding at the bottom of each team member */
+      box-sizing: border-box; /* This ensures padding doesn't increase the size of the box if you have width set */
+    }
+
   </style>
   <title>About - CyberSentry</title>
 </head>
@@ -163,14 +180,14 @@
 
   <nav>
     <ul>
-      <li><a href="main_menu.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
+      <li><a href="{{ url_for('menu') }}">Home</a></li>
+      <li><a href="{{ url_for('about') }}">About</a></li>
       <li class="dropdown">
         <a href="#" class="dropbtn">Help</a>
         <div class="dropdown-content">
-          <a href="services.html">Services</a>
-          <a href="main_menu.html#Contact">Contact</a>
-          <a href="faq.html">FAQ</a>
+          <a href="{{ url_for('services') }}">Services</a>
+          <a href="{{ url_for('menu') }}#Contact">Contact</a>
+          <a href="{{ url_for('faq') }}">FAQ</a>
         </div>
       </li>
        <!-- New item for user profile -->
@@ -182,38 +199,38 @@
   <div class="team-section">
     <h2>Our Team</h2>
     <div class="team-member">
-      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/andres.png" alt="Andres Perez Cabezas">
+      <img src="{{ url_for('static', filename='images/andres.png') }}" alt="Andres Perez Cabezas">
       <div class="member-info">
         <h3>Andres Perez Cabezas</h3>
-        <p>Senior Backend Developer</p>
+        <p>Senior Full Stack Developer & MLOps</p>
       </div>
     </div>
     <div class="team-member">
-      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/roberto.JPG">
+      <img src="{{ url_for('static', filename='images/roberto.JPG') }}">
       <div class="member-info">
       <h3>Roberto Vivas Gotay</h3>
-      <p>Secondary Backend Developer and Frontend Developer</p>
-      </div>
-    </div>
-    <div class="team-member">
-      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/diamaris.png" alt="Diamaris Gonzalez Rodriguez">
-      <div class="member-info">
-      <h3>Diamaris Gonzalez Rodriguez</h3>
       <p>Senior Frontend Developer</p>
       </div>
     </div>
     <div class="team-member">
-      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/gadiel.png" alt="Gadiel Valle Melendez">
+      <img src="{{ url_for('static', filename='images/diamaris.png') }}" alt="Diamaris Gonzalez Rodriguez">
+      <div class="member-info">
+      <h3>Diamaris Gonzalez Rodriguez</h3>
+      <p>Frontend Developer</p>
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="{{ url_for('static', filename='images/gadiel.png') }}" alt="Gadiel Valle Melendez">      
       <div class="member-info">
       <h3>Gadiel Valle Melendez</h3>
       <p>Documentation Specialist</p>
       </div>
     </div>
     <div class="team-member">
-      <img src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/Templates/images/luis.png" alt="Luis Gomez Laureano" style="float:left; width:100px; height:100px; margin-right:20px;">
+      <img src="{{ url_for('static', filename='images/luis.png') }}" alt="Luis Gomez Laureano" style="float:left; width:100px; height:100px; margin-right:20px;">
       <div class="member-info">
       <h3>Luis Gomez Laureano</h3>
-      <p>Secondary Frontend Developer</p>
+      <p>Frontend Developer</p>
       </div>
     </div>
   </div>
