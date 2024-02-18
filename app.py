@@ -7,9 +7,6 @@ def index():
     return render_template('index.html') """
 
 @app.route('/')
-def main_menu():
-    return render_template('main_menu.html')
-@app.route('/')
 def menu():
     return render_template('main_menu.html')
 
