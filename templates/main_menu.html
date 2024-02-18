@@ -182,18 +182,15 @@
       <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
   </nav>
-  <!-- Parent container for the image and DataFrame -->
-<div class="content-wrapper">
-  <!-- Image to be displayed for logged-in users -->
-  <img id="plot-image" src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/images/plot1.png" style="display: none;" alt="Plot Image">
-
-      <!-- This will render the DataFrame as an HTML table -->
-      {{ df_html|safe }}
-</div>
 </main>
   <main class="container">
     <section>
       <h2>Welcome to CyberSentry</h2>
+      <!-- main_menu.html -->
+      <div>
+        {{ df_html|safe }}
+      </div>
+
       <h3>Your trusted partner in Cyber Security.</h3>
       <p>At CyberSentry, we provide top-notch security solutions to protect your digital assets. Our services are designed to give you peace of mind in the evolving landscape of cyber threats.</p>
       <figure>
@@ -213,9 +210,9 @@
     </section>
   </main>
 
-  <!-- <div class="start-button-container">
-    <button class="start-button">Start</button>
-  </div> -->
+<section
+
+
 
   <section aria-label="Subscribe example" class="container">
     <h2>Stay Updated</h2>

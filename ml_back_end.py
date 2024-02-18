@@ -242,27 +242,11 @@ print(attacks_df.shape)  # Adjust .head() parameter as needed to display more ro
 accuracy = accuracy_score(y_test_label, y_pred)
 print(f"Accuracy: {accuracy}")
 
+#===============================================
 
-#===================================================
-""" 
-#Split the DataFrame into chunks of 50 entries
-chunk_size = 50
-chunks = [attacks_df[i:i + chunk_size] for i in range(0, attacks_df.shape[0], chunk_size)]
-
-print(chunks)
-print(attacks_df.shape[0])
-# The base directory path without the file name
-base_path = 'C:/Users/andre/OneDrive/Documents/GitHub/cyber-centry/.venv/templates/data_frame/'
-
-# Ensure the base directory exists
-os.makedirs(base_path, exist_ok=True)
-
-# Write each chunk to a separate HTML file
-for i, chunk in enumerate(chunks):
-    full_path = os.path.join(base_path, f'data_frame_chunk_{i+1}.html')
-    html_content = chunk.to_html()
-    with open(full_path, 'w') as file:
-        file.write(html_content) """
+def get_attacks_df():
+    df = attacks_df
+    return df
 
 #===============================================
         
@@ -303,5 +287,4 @@ plt.title('Flag Counts', fontsize=50)
 file_path = "C:/Users/andre/Documents/GitHub/cyber-sentry/static/images/pt_s_f.png"
 
 plt.savefig(file_path)
-plt.show()
 plt.close()  # Close the figure after saving to free up memory
