@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Path de Roberto -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      color: #fff;
+      margin: 10px 0;
+    }
+
+    nav {
+      background-color: #444;
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    footer a {
+      color: #fdfefe;
+      text-decoration: none;
+    }
+     
+    /* .start-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+    }
+
+    .start-button {
+        background-color: #3498db;
+        color: white;
+        padding: 15px 200px;
+        font-size: 30px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        display: inline-block;
+        width: auto;
+        margin: auto;
+    }
+
+    .start-button:hover {
+        background-color: #2980b9;
+    } */
+    /* Style The Dropdown Button */
+    .dropbtn {
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+      display: inline-block;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #444;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #555}
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: block;}
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {background-color: #555;}
+
+    .content-wrapper {
+    min-height: 0; /* Remove any minimum height constraint if set */
+    overflow: visible; /* Make sure that overflow content is not hidden */
+}
+
+    #plot-image {
+    display: block; /* Displayed when the user is logged in */
+    width: auto; /* Adjust width to auto to maintain aspect ratio without specifying exact size */
+    max-width: 100%; /* Limit the width to not exceed the container's width */
+    height: auto; /* Auto height to maintain aspect ratio */
+    margin: 20px auto; /* Center the image with margin */
+    object-fit: contain; /* Ensure the entire image fits within the given dimensions */
+}
+
+  </style>
+  <title>Main Menu - CyberSentry</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const username = localStorage.getItem('username');
+        if(username) {
+            // Update the 'Your Profile' link to display the username
+            const profileLink = document.querySelector('nav ul li a[href="login_page.html"]');
+            profileLink.innerHTML = `<i class="fas fa-user"></i> ${username}`;
+            profileLink.href = 'user_profile.html'; // Assuming you have a profile page
+        }
+    });
+</script>
+  <script>
+    function subscribeToNewsletter(event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  var firstName = document.getElementById('firstname').value;
+  var email = document.getElementById('email').value;
+
+  fetch("https://script.google.com/macros/s/AKfycbwTsohIvMDjojeA7a59-7QhJM1YT-8T9wpKA3BKGHCljcXGXnXXdIADq77MPnWwbEXRfw/exec", {
+    method: 'POST',
+    mode: 'no-cors', // Important to prevent CORS errors
+    contentType: 'application/json',
+    body: JSON.stringify({firstName: firstName, email: email})
+  })
+  .then(response => {
+    console.log('Subscription successful');
+    alert("Thank you for subscribing, " + firstName + "!");
+    document.getElementById('newsletter-form').reset(); // Optionally, reset the form
+  })
+  .catch(error => console.error('Error:', error));
+}
+
+  </script>
+</head>
+<body>
+  <header>
+    <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
+    <h1>CyberSentry</h1>
+  </header>
+
+  <nav class="container-fluid">
+    <ul>
+      <li><a href="main_menu.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Help</a>
+        <div class="dropdown-content">
+          <a href="services.html">Services</a>
+          <a href="#Contact">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+      </li>
+      <!-- New item for user profile -->
+      <li id="profileTab"><a href="login_page.html"><i class="fas fa-user"></i> Your Profile</a></li>
+      <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </nav>
+  <!-- Parent container for the image and DataFrame -->
+<div class="content-wrapper">
+  <!-- Image to be displayed for logged-in users -->
+  <img id="plot-image" src="C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/images/plot1.png" style="display: none;" alt="Plot Image">
+  <!-- Container for the DataFrame -->
+  <div id="dataframe-container"></div>
+  <!-- Load More Rows button -->
+  <button id="load-more" style="display: none;">Load More Rows</button>
+</div>
+</main>
+  <main class="container">
+    <section>
+      <h2>Welcome to CyberSentry</h2>
+      <h3>Your trusted partner in cyber security.</h3>
+      <p>At CyberSentry, we provide top-notch security solutions to protect your digital assets. Our services are designed to give you peace of mind in the evolving landscape of cyber threats.</p>
+      <figure>
+        <img src="https://source.unsplash.com/featured/?cybersecurity" alt="Cybersecurity" />
+        <figcaption><a href="https://unsplash.com/s/photos/cybersecurity" target="_blank">Image Source</a></figcaption>
+      </figure>
+      <h3>Our Services</h3>
+      <p>Explore our wide range of services tailored to safeguard your business against any cyber threat.</p>
+      <h3 id="Contact">Contact Us</h3>
+      <p>Get in touch with our team of experts for any inquiries or support needed.</p>
+      <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
+      <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
+    </section>
+  </main>
+
+  <!-- <div class="start-button-container">
+    <button class="start-button">Start</button>
+  </div> -->
+
+  <section aria-label="Subscribe example" class="container">
+    <h2>Stay Updated</h2>
+    <h3>Subscribe to our newsletter</h3>
+    <form class="grid" id="newsletter-form" onsubmit="subscribeToNewsletter(event)">
+      <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
+      <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+  <footer>
+    <small>
+      <a>2024 CyberSentry. All rights reserved.</a>
+    </small>
+  </footer>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const username = localStorage.getItem('username');
+    const plotImage = document.getElementById('plot-image');
+    const loadMoreButton = document.getElementById('load-more');
+    const dataframeContainer = document.getElementById('dataframe-container');
+    const profileTab = document.getElementById('profileTab');
+    const logoutTab = document.getElementById('logoutTab');
+
+    if (username) {
+        // User is logged in, show Logout option
+        if (profileTab) profileTab.style.display = 'none';
+        if (logoutTab) logoutTab.style.display = 'block';
+        
+        // Optionally, update profile link to show username
+        if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
+
+        plotImage.style.display = 'block'; // Show the plot image
+        // User is logged in, load the first part of the DataFrame
+        loadDataFramePart(1);
+        loadMoreButton.style.display = 'inline-block'; // Show the load more button
+
+    }else{
+        // User is not logged in, ensure the plot image is not displayed
+        plotImage.style.display = 'none'; // Hide the plot image
+        loadMoreButton.style.display = 'none'; // Hide the load more button
+    }
+    let currentPart = 1; // Keep track of the current part being displayed
+    const maxParts = 282; // Adjust based on the total number of parts you have
+     
+    loadMoreButton.addEventListener('click', function() {
+        if (currentPart < maxParts) {
+            currentPart++;
+            loadDataFramePart(currentPart);
+            if (currentPart >= maxParts) {
+                loadMoreButton.style.display = 'none'; // Hide button if no more parts to load
+            }
+        }
+    });
+
+    function loadDataFramePart(part) {
+      const rowsPerChunk = 77;
+      const totalRows = 14100;
+      const totalParts = Math.ceil(totalRows / rowsPerChunk); // Adjust based on rows per chunk
+
+      if (part > totalParts) {
+          console.error("Trying to load a part that doesn't exist:", part);
+          return; // Prevent loading more parts than needed
+      }
+      const iframe = document.createElement('iframe');
+      iframe.src = `C:/Users/rober/Documents/GitHub/cyber-centry/.venv/templates/data_frame/data_frame_chunk_${part}.html`;
+      iframe.width = '100%';
+      iframe.height = '500'; // Adjust as needed
+      iframe.style.border = 'none';
+      const dataframeContainer = document.getElementById('dataframe-container');
+      // Clear previous content and append new iframe
+      dataframeContainer.innerHTML = ''; // Optionally clear previous iframe to avoid accumulation
+      dataframeContainer.appendChild(iframe);
+    }
+
+    const logoutLink = document.getElementById('logout');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('username'); // Clear user session
+            // Update UI immediately after logout
+            if (profileTab) profileTab.style.display = 'block';
+            if (logoutTab) logoutTab.style.display = 'none';
+            window.location.href = 'login_page.html'; // Redirect to login page
+        });
+    }
+});
+</script>
+</body>
+</html>
