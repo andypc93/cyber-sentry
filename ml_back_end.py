@@ -305,8 +305,3 @@ file_path = "C:/Users/andre/Documents/GitHub/cyber-sentry/static/images/pt_s_f.p
 plt.savefig(file_path)
 plt.show()
 plt.close()  # Close the figure after saving to free up memory
-
-
-
-
-
