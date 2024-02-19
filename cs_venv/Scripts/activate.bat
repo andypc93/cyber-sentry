@@ -8,7 +8,8 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\andre\Documents\GitHub\cyber-sentry\cs_venv
+for /f %%i in ('python get_venv_path.py') do set "VIRTUAL_ENV=%%i"
+set VIRTUAL_ENV=$(python get_venv_path.py)
 
 if not defined PROMPT set PROMPT=$P$G
 
