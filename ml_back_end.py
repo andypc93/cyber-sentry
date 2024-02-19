@@ -245,9 +245,19 @@ print(f"Accuracy: {accuracy}")
 #===============================================
 
 def get_attacks_df():
-    df = attacks_df
-    return df
+    # Make sure the directory exists
+    os.makedirs("static/tables", exist_ok=True)
 
+    # Define the full file path
+    file_path = os.path.join("templates", "table1.html")
+
+    # Save the DataFrame
+    attacks_df_html = attacks_df.to_html(file_path, index=False)  # Set index=False if you don't want the DataFrame index in the file
+
+    return attacks_df_html
+
+
+get_attacks_df()
 #===============================================
         
 # Set larger font sizes for all plots

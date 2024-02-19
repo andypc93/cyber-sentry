@@ -159,6 +159,7 @@
 
   </script>
 </head>
+
 <body>
   <header>
     <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
@@ -203,26 +204,8 @@
         we're here to guide you to a safer digital future. Contact us today.</p>
       <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
       <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
+      {{ table_html|safe }}
     </section>
-
-
-
-    <head>
-      <title>Table Display</title>
-    </head>
-    <body>
-      <div id="tableDiv">
-          {{ df_html|safe }}
-      </div>
-      <div>
-          <!-- Pagination buttons -->
-          <a href="/?page={{ page - 1 }}">Previous</a>
-          <span>Page {{ page }}</span>
-          <a href="/?page={{ page + 1 }}">Next</a>
-      </div>
-  
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 
 
   </main>
