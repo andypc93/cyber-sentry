@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\diama\OneDrive\Documents\GitHub\cyber-sentry\cs_venv"
+VIRTUAL_ENV=$(python get_venv_path.py)
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
