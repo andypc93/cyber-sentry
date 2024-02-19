@@ -12,7 +12,9 @@ from sklearn.metrics import accuracy_score
 
 #db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
 
-db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
+#db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
+
+db_path = 'C:/Users/diama/SQLiteStudio/CyberSentryDB.db'
 
 conn = sql.connect(db_path)
 
