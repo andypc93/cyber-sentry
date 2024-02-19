@@ -135,8 +135,6 @@
             profileLink.href = 'user_profile.html'; // Assuming you have a profile page
         }
     });
-</script>
-  <script>
     function subscribeToNewsletter(event) {
   event.preventDefault(); // Prevent the default form submission
 
@@ -157,6 +155,37 @@
   .catch(error => console.error('Error:', error));
 }
 
+    document.addEventListener('DOMContentLoaded', function() {
+      const username = localStorage.getItem('username');
+      const plotImage = document.getElementById('plot-image');
+      const loadMoreButton = document.getElementById('load-more');
+      const profileTab = document.getElementById('profileTab');
+      const logoutTab = document.getElementById('logoutTab');
+    
+      if (username) {
+        // User is logged in, show Logout option and other elements
+        if (profileTab) profileTab.style.display = 'none';
+        if (logoutTab) logoutTab.style.display = 'block';
+        if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
+        plotImage.style.display = 'block'; // Show the plot image
+        loadMoreButton.style.display = 'inline-block'; // Show the load more button
+      } else {
+        // User is not logged in, hide certain elements
+        plotImage.style.display = 'none';
+        loadMoreButton.style.display = 'none';
+      }
+    
+      const logoutLink = document.getElementById('logout');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          localStorage.removeItem('username'); // Clear user session
+          if (profileTab) profileTab.style.display = 'block';
+          if (logoutTab) logoutTab.style.display = 'none';
+          window.location.href = 'main_menu.html'; // Redirect to main menu after logout
+        });
+      }
+    });
   </script>
 </head>
 
@@ -221,39 +250,5 @@
       <a>2024 CyberSentry. All rights reserved.</a>
     </small>
   </footer>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const username = localStorage.getItem('username');
-      const plotImage = document.getElementById('plot-image');
-      const loadMoreButton = document.getElementById('load-more');
-      const profileTab = document.getElementById('profileTab');
-      const logoutTab = document.getElementById('logoutTab');
-    
-      if (username) {
-        // User is logged in, show Logout option and other elements
-        if (profileTab) profileTab.style.display = 'none';
-        if (logoutTab) logoutTab.style.display = 'block';
-        if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
-        plotImage.style.display = 'block'; // Show the plot image
-        loadMoreButton.style.display = 'inline-block'; // Show the load more button
-      } else {
-        // User is not logged in, hide certain elements
-        plotImage.style.display = 'none';
-        loadMoreButton.style.display = 'none';
-      }
-    
-      const logoutLink = document.getElementById('logout');
-      if (logoutLink) {
-        logoutLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          localStorage.removeItem('username'); // Clear user session
-          if (profileTab) profileTab.style.display = 'block';
-          if (logoutTab) logoutTab.style.display = 'none';
-          window.location.href = 'main_menu.html'; // Redirect to main menu after logout
-        });
-      }
-    });
-    </script>
-    
 </body>
 </html>

@@ -96,9 +96,8 @@ function global:deactivate ([switch]$NonDestructive) {
         Remove-Item -Path env:VIRTUAL_ENV
     }
 
-    # Just remove VIRTUAL_ENV_PROMPT altogether.
-    if (Test-Path -Path Env:VIRTUAL_ENV_PROMPT) {
-        Remove-Item -Path env:VIRTUAL_ENV_PROMPT
+   
+    
     }
 
     # Just remove the _PYTHON_VENV_PROMPT_PREFIX altogether:

@@ -14,8 +14,6 @@ from sklearn.metrics import accuracy_score
 
 db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
 
-#db_path = 'C:/Users/diama/SQLite/CyberSentryDB.db'
-
 conn = sql.connect(db_path)
 
 cursor = conn.cursor()
@@ -126,14 +124,22 @@ df_test.drop(columns=["outcome", "level"], inplace =True)
 #===================================================
 
 def preprocess(dataframe, to_drop_columns):
-    
+    if dataframe.empty:
+        return None, None, None
+
+    if "class" not in dataframe.columns:
+        raise ValueError("The 'class' column does not exist in the dataframe.")
+    for column in to_drop_columns:
+        if column not in dataframe.columns:
+            raise ValueError(f"The column '{column}' does not exist in the dataframe.")
+
     x = dataframe.drop(columns=["class"])
-    x = x.drop(columns = to_drop_columns)
+    x = x.drop(columns=to_drop_columns)
 
     x_num = x.select_dtypes(exclude='object')
 
     y = dataframe["class"]
-    
+
     return x, x_num, y
 
 #===================================================
