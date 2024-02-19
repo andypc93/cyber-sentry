@@ -222,46 +222,38 @@
     </small>
   </footer>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const username = localStorage.getItem('username');
-    const plotImage = document.getElementById('plot-image');
-    const loadMoreButton = document.getElementById('load-more');
-    const dataframeContainer = document.getElementById('dataframe-container');
-    const profileTab = document.getElementById('profileTab');
-    const logoutTab = document.getElementById('logoutTab');
-
-    if (username) {
-        // User is logged in, show Logout option
+    document.addEventListener('DOMContentLoaded', function() {
+      const username = localStorage.getItem('username');
+      const plotImage = document.getElementById('plot-image');
+      const loadMoreButton = document.getElementById('load-more');
+      const profileTab = document.getElementById('profileTab');
+      const logoutTab = document.getElementById('logoutTab');
+    
+      if (username) {
+        // User is logged in, show Logout option and other elements
         if (profileTab) profileTab.style.display = 'none';
         if (logoutTab) logoutTab.style.display = 'block';
-        
-        // Optionally, update profile link to show username
         if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
-
         plotImage.style.display = 'block'; // Show the plot image
-        // User is logged in, load the first part of the DataFrame
         loadMoreButton.style.display = 'inline-block'; // Show the load more button
-
-    }else{
-        // User is not logged in, ensure the plot image is not displayed
-        plotImage.style.display = 'none'; // Hide the plot image
-        loadMoreButton.style.display = 'none'; // Hide the load more button
-    }
-    let currentPart = 1; // Keep track of the current part being displayed
-    const maxParts = 282; // Adjust based on the total number of parts you have
-     
-    const logoutLink = document.getElementById('logout');
-    if (logoutLink) {
+      } else {
+        // User is not logged in, hide certain elements
+        plotImage.style.display = 'none';
+        loadMoreButton.style.display = 'none';
+      }
+    
+      const logoutLink = document.getElementById('logout');
+      if (logoutLink) {
         logoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            localStorage.removeItem('username'); // Clear user session
-            // Update UI immediately after logout
-            if (profileTab) profileTab.style.display = 'block';
-            if (logoutTab) logoutTab.style.display = 'none';
-            window.location.href = 'login_page.html'; // Redirect to login page
+          e.preventDefault();
+          localStorage.removeItem('username'); // Clear user session
+          if (profileTab) profileTab.style.display = 'block';
+          if (logoutTab) logoutTab.style.display = 'none';
+          window.location.href = 'main_menu.html'; // Redirect to main menu after logout
         });
-    }
-});
-</script>
+      }
+    });
+    </script>
+    
 </body>
 </html>
