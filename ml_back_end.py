@@ -7,6 +7,13 @@ from joblib import load
 from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
+import random
+
+# Set the display options
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', None)
 
 #===================================================
 
@@ -252,10 +259,49 @@ print(attacks_df.shape)  # Adjust .head() parameter as needed to display more ro
 accuracy = accuracy_score(y_test_label, y_pred)
 print(f"Accuracy: {accuracy}")
 
+
+#===============================================
+
+
+def generate_ip_addresses(network = '172.16.0'):
+    ip_addresses = []
+    for _ in range(5):
+        ip = network + "." + str(random.randint(0, 255))
+        ip_addresses.append(ip)
+    return ip_addresses
+
+# Function to randomly assign IP addresses to rows in a DataFrame
+def assign_ip_addresses(dataframe, ip_addresses_column_name, ip_addresses, weights):
+    # Create the new column with random IP addresses
+    # The weights determine the probability of each IP address being chosen
+    new_col = random.choices(ip_addresses, weights=weights, k=len(dataframe))
+
+    # Insert the new column at position 0 (the beginning)
+    dataframe.insert(0, ip_addresses_column_name, new_col)
+
+    return dataframe
+
+#===============================================
+weights = [0.5, 0.2, 0.1, 0.1, 0.1]  # Adjust these values as needed
+
+attack_df_with_ip = assign_ip_addresses(attacks_df, 'ip_address', generate_ip_addresses(), weights)
+#===============================================
+
+def analyze_data(df):
+    # Group by IP address, protocol type, flag, and service and count occurrences
+    analysis_df = df.groupby(['ip_addresses', 'protocol_type', 'flag', 'service']).size().reset_index(name='count')
+    return analysis_df
+
+#===============================================
+
+analyzed_df = analyze_data(attack_df_with_ip)
+
+print(analyzed_df)
+
 #===============================================
 
 def get_attacks_df():
-    df = attacks_df
+    df = analyzed_df
     return df
 
 #===============================================
@@ -277,24 +323,40 @@ colors_service = ['cyan', 'magenta', 'yellow', 'black', 'white', 'orange', 'grey
 colors_flag = ['purple', 'pink', 'lightblue']
 
 # Plot for protocol_type with colors
-plt.subplot(131)
+plt.figure(figsize=(40, 20))
 attacks_df["protocol_type"].value_counts().plot(kind='bar', label='protocol type', color=colors_protocol_type)
 plt.xlabel('Protocol Type', fontsize=50)
 plt.title('Protocol Type Counts', fontsize=50)
+plt.savefig("static/images/protocol_type.png")
+plt.close()
 
 # Plot for service with colors
-plt.subplot(132)
+plt.figure(figsize=(40, 20))
 attacks_df['service'].value_counts().head(10).plot(kind='bar', color=colors_service)
 plt.xlabel('Service', fontsize=50)
 plt.title('Top 10 Services', fontsize=50)
+plt.savefig("static/images/service.png")
+plt.close()
 
 # Plot for flag with colors
-plt.subplot(133)
+plt.figure(figsize=(40, 20))
 attacks_df["flag"].value_counts().plot(kind='bar', color=colors_flag)
 plt.xlabel('Flag', fontsize=50)
 plt.title('Flag Counts', fontsize=50)
+plt.savefig("static/images/flag.png")
+plt.close()
 
-file_path = "C:/Users/andre/Documents/GitHub/cyber-sentry/static/images/pt_s_f.png"
+# Assuming 'ip_address' is the column with IP addresses
+ip_address_counts = attack_df_with_ip['ip_addresses'].value_counts()
 
-plt.savefig(file_path)
-plt.close()  # Close the figure after saving to free up memory
+# Create a new figure for the IP address count plot
+plt.figure(figsize=(40, 20))
+
+# Plot the IP address counts
+ip_address_counts.head(10).plot(kind='bar')
+plt.xlabel('IP Address', fontsize=50)
+plt.title('Top 10 IP Addresses', fontsize=50)
+
+# Save the plot
+plt.savefig("static/images/ip_address_counts.png")
+plt.close()
