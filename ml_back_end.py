@@ -334,12 +334,8 @@ ip_address_counts = attack_df_with_ip['ip_addresses'].value_counts()
 
 # Create a new figure for the IP address count plot
 plt.figure(figsize=(40, 20))
-
-# Plot the IP address counts
 ip_address_counts.head(10).plot(kind='bar')
 plt.xlabel('IP Address', fontsize=50)
 plt.title('Top 10 IP Addresses', fontsize=50)
-
-# Save the plot
 plt.savefig("static/images/ip_address_counts.png")
 plt.close()
