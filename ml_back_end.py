@@ -19,9 +19,9 @@ pd.set_option('display.max_colwidth', None)
 
 #db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
 
-#db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
+db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
 
-db_path = 'C:/Users/diama/SQLiteStudio/CyberSentryDB0.db'
+#db_path = 'C:/Users/diama/SQLiteStudio/CyberSentryDB0.db'
 
 conn = sql.connect(db_path)
 
@@ -310,34 +310,48 @@ colors_flag = ['purple', 'pink', 'lightblue']
 # Plot for protocol_type with colors
 plt.figure(figsize=(40, 20))
 attacks_df["protocol_type"].value_counts().plot(kind='bar', label='protocol type', color=colors_protocol_type)
-plt.xlabel('Protocol Type', fontsize=50)
-plt.title('Protocol Type Counts', fontsize=50)
+plt.xlabel('Protocol Type', fontsize=40)
+plt.title('Protocol Type Counts', fontsize=40)
+plt.xticks(rotation=45, fontsize=40)
+plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.tight_layout()
 plt.savefig("static/images/protocol_type.png")
 plt.close()
 
 # Plot for service with colors
 plt.figure(figsize=(40, 20))
 attacks_df['service'].value_counts().head(10).plot(kind='bar', color=colors_service)
-plt.xlabel('Service', fontsize=50)
-plt.title('Top 10 Services', fontsize=50)
+plt.xlabel('Service', fontsize=40)
+plt.title('All Services', fontsize=40)
+plt.xticks(rotation=45, fontsize=40)
+plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.tight_layout()
 plt.savefig("static/images/service.png")
 plt.close()
 
 # Plot for flag with colors
 plt.figure(figsize=(40, 20))
 attacks_df["flag"].value_counts().plot(kind='bar', color=colors_flag)
-plt.xlabel('Flag', fontsize=50)
-plt.title('Flag Counts', fontsize=50)
+plt.xlabel('Flag', fontsize=40)
+plt.title('Flag Counts', fontsize=40)
+plt.xticks(rotation=45, fontsize=40)
+plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.tight_layout()
 plt.savefig("static/images/flag.png")
 plt.close()
 
 # Assuming 'ip_address' is the column with IP addresses
 ip_address_counts = attack_df_with_ip['ip_addresses'].value_counts()
 
+
 # Create a new figure for the IP address count plot
 plt.figure(figsize=(40, 20))
-ip_address_counts.head(10).plot(kind='bar')
-plt.xlabel('IP Address', fontsize=50)
-plt.title('Top 10 IP Addresses', fontsize=50)
+ip_address_counts.head(10).plot(kind='bar', color=['blue', 'green', 'red', 'cyan', 'magenta'])
+plt.xlabel('IP Address', fontsize=40)
+plt.ylabel('Count', fontsize=40)  # Assuming you want to label the y-axis as well
+plt.title('All IP Addresses', fontsize=40)
+plt.xticks(rotation=45, fontsize=40)  # Rotate x-axis labels to 45 degrees and increase font size
+plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.tight_layout()
 plt.savefig("static/images/ip_address_counts.png")
 plt.close()
