@@ -2,7 +2,7 @@ import pandas as pd
 import subprocess
 
 from flask import Flask, render_template, url_for, request
-from ml_back_end import get_attacks_df
+#from ml_back_end import get_attacks_df
 
 #==================================================================================
 
