@@ -122,21 +122,28 @@
     margin: 20px auto; /* Center the image with margin */
     object-fit: contain; /* Ensure the entire image fits within the given dimensions */
 }
-
 </style>
+
 <title>Main Menu - CyberSentry</title>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const username = localStorage.getItem('username');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
     const profileTab = document.getElementById('profileTab');
     const logoutTab = document.getElementById('logoutTab');
+    const loggedInItems = document.getElementById('loggedInItems');
+    const loggedOutItems = document.getElementById('loggedOutItems');
 
-    if (username) {
+    if (isLoggedIn == 'true') {
       // User is logged in, hide login button and show logout button
-      if (profileTab) profileTab.style.display = 'block';
-      if (logoutTab) logoutTab.style.display = 'none';
+      if (loggedInItems) loggedInItems.style.display = 'block';
+      if (loggedOutItems) loggedOutItems.style.display = 'none';
+      if (profileTab) profileTab.style.display = 'none';
+      if (logoutTab) logoutTab.style.display = 'block';
     } else {
       // User is not logged in, show login button and hide logout button
+      if (loggedInItems) loggedInItems.style.display = 'none';
+      if (loggedOutItems) loggedOutItems.style.display = 'block';
       if (profileTab) profileTab.style.display = 'block';
       if (logoutTab) logoutTab.style.display = 'none';
     }
@@ -146,12 +153,13 @@
       logoutLink.addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.removeItem('username'); // Clear user session
-        if (profileTab) profileTab.style.display = 'block'; // Show login button
-        if (logoutTab) logoutTab.style.display = 'none'; // Hide logout button
+        localStorage.setItem('isLoggedIn', 'false'); //Clear login status
+        if (loggedInItems) loggedInItems.style.display = 'none';
+        if (loggedOutItems) loggedOutItems.style.display = 'block';
         window.location.href = '/'; // Redirect to the main page after logout
       });
     }
-  });
+  }); 
 </script>
 
 
@@ -174,10 +182,26 @@
               </div>
           </li>
           <li id="profileTab"><a href="{{ url_for('login_page') }}"><i class="fas fa-user"></i> Login</a></li>
-          <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          <li id="logoutTab"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
       </ul>
   </nav>
   <main class="container">
+    <!-- ... (your existing content) ... -->
+
+    <!-- Conditionally visible items for logged-in users -->
+    <div id="loggedInItems" style="display: none;">
+      <!-- Add items here that should be visible when the user is logged in -->
+      <p>Welcome!</p>
+      
+      <!-- Relative path for the image adjusted based on the file structure -->
+      <img src="../static/images/flag.png" alt="Flag Image" style="width: 100px; height: 100px;">
+
+      <!-- ... (other logged-in user content) ... -->
+    </div>
+
+    <!-- Conditionally visible items for logged-out users -->
+    <div id="loggedOutItems" style="display: none;">
+      <!-- Add items here that should be visible when the user is not logged in -->
       <section>
           <h2>Welcome to CyberSentry</h2>
           <h3>Your trusted partner in Cyber Security.</h3>
@@ -188,21 +212,25 @@
           </figure>
           <h3>Our Services</h3>
           <p>Navigate the complexities of cybersecurity with our bespoke services designed to fortify your enterprise's defenses. Engage with our suite of state-of-the-art solutions, meticulously crafted to protect your business from the forefront of digital threats. Let's elevate your security posture together.</p>
-          <h3 id="Contact">Contact Us</h3>
-          <p>Your security is our priority. Reach out to our dedicated team of cybersecurity professionals for personalized consultation and robust support. Whether you have questions, require assistance, or need a custom security strategy, we're here to guide you to a safer digital future. Contact us today.</p>
-          <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
-          <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
       </section>
+      <section>
+        <h2>Stay Updated</h2>
+        <h3>Subscribe to our Newsletter</h3>
+        <form class="grid" id="newsletter-form" onsubmit="subscribeToNewsletter(event)">
+            <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
+            <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+      <!-- ... (other logged-out user content) ... -->
+    </div>
   </main>
-  <section aria-label="Subscribe example" class="container">
-      <h2>Stay Updated</h2>
-      <h3>Subscribe to our Newsletter</h3>
-      <form class="grid" id="newsletter-form" onsubmit="subscribeToNewsletter(event)">
-          <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
-          <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
-          <button type="submit">Subscribe</button>
-      </form>
-  </section>
+  <section class="container">
+    <h3 id="Contact">Contact Us</h3>
+    <p>Your security is our priority. Reach out to our dedicated team of cybersecurity professionals for personalized consultation and robust support. Whether you have questions, require assistance, or need a custom security strategy, we're here to guide you to a safer digital future. Contact us today.</p>
+    <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
+    <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
+</section>
   <footer>
       <small>
           <a>2024 CyberSentry. All rights reserved.</a>
