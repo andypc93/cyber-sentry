@@ -94,6 +94,8 @@
 
             if(username === 'user' && password === 'password') {
                 // Redirect to main menu page after successful login
+                localStorage.setItem('username', 'user');
+                localStorage.setItem('isLoggedIn', 'true');
                 window.location.href = "{{ url_for('menu') }}";
             } else {
                 alert('Incorrect username or password!');
