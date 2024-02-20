@@ -188,67 +188,57 @@
     });
   </script>
 </head>
-
 <body>
   <header>
-    <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
-    <h1>CyberSentry</h1>
+      <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
+      <h1>CyberSentry</h1>
   </header>
-
   <nav class="container-fluid">
-    <ul>
-      <li><a href="{{ url_for('menu') }}">Home</a></li>
-      <li><a href="{{ url_for('about') }}">About</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropbtn">Help</a>
-        <div class="dropdown-content">
-          <a href="{{ url_for('services') }}">Services</a>
-          <a href="{{ url_for('menu') }}#Contact">Contact</a>
-          <a href="{{ url_for('faq') }}">FAQ</a>
-        </div>
-      </li>
-      <!-- New item for user profile -->
-      <li id="profileTab"><a href="{{ url_for('login_page') }}"><i class="fas fa-user"></i> Login</a></li>
-      <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-    </ul>
+      <ul>
+          <li><a href="{{ url_for('menu') }}">Home</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li class="dropdown">
+              <a href="#" class="dropbtn">Help</a>
+              <div class="dropdown-content">
+                  <a href="{{ url_for('services') }}">Services</a>
+                  <a href="{{ url_for('menu') }}#Contact">Contact</a>
+                  <a href="{{ url_for('faq') }}">FAQ</a>
+              </div>
+          </li>
+          <li id="profileTab"><a href="{{ url_for('login_page') }}"><i class="fas fa-user"></i> Login</a></li>
+          <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
   </nav>
-</main>
   <main class="container">
-    <section>
-      <h2>Welcome to CyberSentry</h2>
-      <!-- main_menu.html -->
-      <h3>Your trusted partner in Cyber Security.</h3>
-      <p>At CyberSentry, we provide top-notch security solutions to protect your digital assets. Our services are designed to give you peace of mind in the evolving landscape of cyber threats.</p>
-      <figure>
-        <img src="https://source.unsplash.com/featured/?cybersecurity" alt="Cybersecurity" />
-        <figcaption><a href="https://unsplash.com/s/photos/cybersecurity" target="_blank"></a></figcaption>
-      </figure>
-      <h3>Our Services</h3>
-      <p>Navigate the complexities of cybersecurity with our bespoke services designed to fortify your enterprise's defenses. 
-        Engage with our suite of state-of-the-art solutions, meticulously crafted to protect your business from the forefront of 
-        digital threats. Let's elevate your security posture together.</p>
-      <h3 id="Contact">Contact Us</h3>
-      <p>Your security is our priority. Reach out to our dedicated team of cybersecurity professionals for personalized 
-        consultation and robust support. Whether you have questions, require assistance, or need a custom security strategy, 
-        we're here to guide you to a safer digital future. Contact us today.</p>
-      <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
-      <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
-    </section>
+      <section>
+          <h2>Welcome to CyberSentry</h2>
+          <h3>Your trusted partner in Cyber Security.</h3>
+          <p>At CyberSentry, we provide top-notch security solutions to protect your digital assets. Our services are designed to give you peace of mind in the evolving landscape of cyber threats.</p>
+          <figure>
+              <img src="https://source.unsplash.com/featured/?cybersecurity" alt="Cybersecurity" />
+              <figcaption><a href="https://unsplash.com/s/photos/cybersecurity" target="_blank"></a></figcaption>
+          </figure>
+          <h3>Our Services</h3>
+          <p>Navigate the complexities of cybersecurity with our bespoke services designed to fortify your enterprise's defenses. Engage with our suite of state-of-the-art solutions, meticulously crafted to protect your business from the forefront of digital threats. Let's elevate your security posture together.</p>
+          <h3 id="Contact">Contact Us</h3>
+          <p>Your security is our priority. Reach out to our dedicated team of cybersecurity professionals for personalized consultation and robust support. Whether you have questions, require assistance, or need a custom security strategy, we're here to guide you to a safer digital future. Contact us today.</p>
+          <p><a href="mailto:cybersentrysupport@cybersentry.org">Email: cybersentrysupport@cybersentry.org</a></p>
+          <p><a href="tel:000-000-0000">Tel: 000-000-0000</a></p>
+      </section>
   </main>
-
   <section aria-label="Subscribe example" class="container">
-    <h2>Stay Updated</h2>
-    <h3>Subscribe to our Newsletter</h3>
-    <form class="grid" id="newsletter-form" onsubmit="subscribeToNewsletter(event)">
-      <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
-      <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
-      <button type="submit">Subscribe</button>
-    </form>
+      <h2>Stay Updated</h2>
+      <h3>Subscribe to our Newsletter</h3>
+      <form class="grid" id="newsletter-form" onsubmit="subscribeToNewsletter(event)">
+          <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
+          <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
+          <button type="submit">Subscribe</button>
+      </form>
   </section>
   <footer>
-    <small>
-      <a>2024 CyberSentry. All rights reserved.</a>
-    </small>
+      <small>
+          <a>2024 CyberSentry. All rights reserved.</a>
+      </small>
   </footer>
 </body>
 </html>
