@@ -261,7 +261,7 @@ print(f"Accuracy: {accuracy}")
 #===============================================
 
 
-def generate_ip_addresses(network = '172.16.0'):
+def generate_ip_addresses(network='172.16.0'):
     ip_addresses = []
     for _ in range(5):
         ip = network + "." + str(random.randint(0, 255))
@@ -279,41 +279,26 @@ def assign_ip_addresses(dataframe, ip_addresses_column_name, ip_addresses, weigh
 
     return dataframe
 
-#===============================================
-weights = [0.5, 0.2, 0.1, 0.1, 0.1]  # Adjust these values as needed
+# Example usage
+weights = [0.4, 0.2, 0.2, 0.1, 0.1]  # Adjust these values as needed
 
-attack_df_with_ip = assign_ip_addresses(attacks_df, 'ip_address', generate_ip_addresses(), weights)
-#===============================================
+# Assuming attacks_df is your DataFrame containing the data
+attack_df_with_ip = assign_ip_addresses(attacks_df, 'ip_addresses', generate_ip_addresses(), weights)
 
 def analyze_data(df):
     # Group by IP address, protocol type, flag, and service and count occurrences
     analysis_df = df.groupby(['ip_addresses', 'protocol_type', 'flag', 'service']).size().reset_index(name='count')
     return analysis_df
 
-#===============================================
-
 analyzed_df = analyze_data(attack_df_with_ip)
 
 print(analyzed_df)
 
-#===============================================
-
+# Assuming get_attacks_df() is your function to retrieve the DataFrame
 def get_attacks_df():
     df = analyzed_df
     return df
-
 #===============================================
-        
-# Set larger font sizes for all plots
-plt.rc('font', size=40)          # controls default text sizes
-plt.rc('axes', titlesize=40)     # fontsize of the axes title
-plt.rc('axes', labelsize=40)     # fontsize of the x and y labels
-plt.rc('xtick', labelsize=25)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=25)    # fontsize of the tick labels
-plt.rc('legend', fontsize=40)    # legend fontsize
-plt.rc('figure', titlesize=40)   # fontsize of the figure title
-
-plt.figure(figsize=(40, 20))
 
 # Define colors for each plot
 colors_protocol_type = ['blue', 'green', 'red']
