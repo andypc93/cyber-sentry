@@ -7,6 +7,7 @@ from joblib import load
 from sklearn.discriminant_analysis import StandardScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
+import random
 
 #===================================================
 
@@ -254,12 +255,44 @@ print(f"Accuracy: {accuracy}")
 #===============================================
 
 
+def generate_ip_addresses(network = 172):
+    ip_addresses = []
+    for _ in range(5):
+        ip = str(network) + "." + ".".join(str(random.randint(0, 255)) for _ in range(3))
+        ip_addresses.append(ip)
+    return ip_addresses
 
+# Function to randomly assign IP addresses to rows in a DataFrame
+def assign_ip_addresses(dataframe, ip_addresses_column_name, ip_addresses):
+    # Create the new column with random IP addresses
+    new_col = random.choices(ip_addresses, k=len(dataframe))
+
+    # Insert the new column at position 0 (the beginning)
+    dataframe.insert(0, ip_addresses_column_name, new_col)
+
+    return dataframe
+
+#===============================================
+
+attack_df_with_ip = assign_ip_addresses(attacks_df, 'ip_addresses', generate_ip_addresses())
+
+#===============================================
+
+def analyze_data(df):
+    # Group by IP address, protocol type, flag, and service and count occurrences
+    analysis_df = df.groupby(['ip_addresses', 'protocol_type', 'flag', 'service']).size().reset_index(name='count')
+    return analysis_df
+
+#===============================================
+
+analyzed_df = analyze_data(attack_df_with_ip)
+
+print(analyzed_df.size)
 
 #===============================================
 
 def get_attacks_df():
-    df = attacks_df
+    df = analyzed_df
     return df
 
 #===============================================
