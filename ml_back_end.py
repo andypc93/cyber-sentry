@@ -312,8 +312,8 @@ plt.figure(figsize=(40, 20))
 attacks_df["protocol_type"].value_counts().plot(kind='bar', label='protocol type', color=colors_protocol_type)
 plt.xlabel('Protocol Type', fontsize=40)
 plt.title('Protocol Type Counts', fontsize=40)
-plt.xticks(rotation=45, fontsize=40)
-plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.xticks(rotation=45, fontsize=50)
+plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
 plt.savefig("static/images/protocol_type.png")
 plt.close()
@@ -323,8 +323,8 @@ plt.figure(figsize=(40, 20))
 attacks_df['service'].value_counts().head(10).plot(kind='bar', color=colors_service)
 plt.xlabel('Service', fontsize=40)
 plt.title('All Services', fontsize=40)
-plt.xticks(rotation=45, fontsize=40)
-plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.xticks(rotation=45, fontsize=50)
+plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
 plt.savefig("static/images/service.png")
 plt.close()
@@ -334,8 +334,8 @@ plt.figure(figsize=(40, 20))
 attacks_df["flag"].value_counts().plot(kind='bar', color=colors_flag)
 plt.xlabel('Flag', fontsize=40)
 plt.title('Flag Counts', fontsize=40)
-plt.xticks(rotation=45, fontsize=40)
-plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.xticks(rotation=45, fontsize=50)
+plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
 plt.savefig("static/images/flag.png")
 plt.close()
@@ -350,8 +350,8 @@ ip_address_counts.head(10).plot(kind='bar', color=['blue', 'green', 'red', 'cyan
 plt.xlabel('IP Address', fontsize=40)
 plt.ylabel('Count', fontsize=40)  # Assuming you want to label the y-axis as well
 plt.title('All IP Addresses', fontsize=40)
-plt.xticks(rotation=45, fontsize=40)  # Rotate x-axis labels to 45 degrees and increase font size
-plt.yticks(fontsize=40)  # Increase font size of y-axis labels
+plt.xticks(rotation=45, fontsize=50)  # Rotate x-axis labels to 45 degrees and increase font size
+plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
 plt.savefig("static/images/ip_address_counts.png")
 plt.close()
