@@ -123,70 +123,38 @@
     object-fit: contain; /* Ensure the entire image fits within the given dimensions */
 }
 
-  </style>
-  <title>Main Menu - CyberSentry</title>
-  <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const username = localStorage.getItem('username');
-        if(username) {
-            // Update the 'Your Profile' link to display the username
-            const profileLink = document.querySelector('nav ul li a[href="login_page.html"]');
-            profileLink.innerHTML = `<i class="fas fa-user"></i> ${username}`;
-            profileLink.href = 'user_profile.html'; // Assuming you have a profile page
-        }
-    });
-    function subscribeToNewsletter(event) {
-  event.preventDefault(); // Prevent the default form submission
+</style>
+<title>Main Menu - CyberSentry</title>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const username = localStorage.getItem('username');
+    const profileTab = document.getElementById('profileTab');
+    const logoutTab = document.getElementById('logoutTab');
 
-  var firstName = document.getElementById('firstname').value;
-  var email = document.getElementById('email').value;
+    if (username) {
+      // User is logged in, hide login button and show logout button
+      if (profileTab) profileTab.style.display = 'block';
+      if (logoutTab) logoutTab.style.display = 'none';
+    } else {
+      // User is not logged in, show login button and hide logout button
+      if (profileTab) profileTab.style.display = 'block';
+      if (logoutTab) logoutTab.style.display = 'none';
+    }
 
-  fetch("https://script.google.com/macros/s/AKfycbwTsohIvMDjojeA7a59-7QhJM1YT-8T9wpKA3BKGHCljcXGXnXXdIADq77MPnWwbEXRfw/exec", {
-    method: 'POST',
-    mode: 'no-cors', // Important to prevent CORS errors
-    contentType: 'application/json',
-    body: JSON.stringify({firstName: firstName, email: email})
-  })
-  .then(response => {
-    console.log('Subscription successful');
-    alert("Thank you for subscribing, " + firstName + "!");
-    document.getElementById('newsletter-form').reset(); // Optionally, reset the form
-  })
-  .catch(error => console.error('Error:', error));
-}
+    const logoutLink = document.getElementById('logout');
+    if (logoutLink) {
+      logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('username'); // Clear user session
+        if (profileTab) profileTab.style.display = 'block'; // Show login button
+        if (logoutTab) logoutTab.style.display = 'none'; // Hide logout button
+        window.location.href = '/'; // Redirect to the main page after logout
+      });
+    }
+  });
+</script>
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const username = localStorage.getItem('username');
-      const plotImage = document.getElementById('plot-image');
-      const loadMoreButton = document.getElementById('load-more');
-      const profileTab = document.getElementById('profileTab');
-      const logoutTab = document.getElementById('logoutTab');
-    
-      if (username) {
-        // User is logged in, show Logout option and other elements
-        if (profileTab) profileTab.style.display = 'none';
-        if (logoutTab) logoutTab.style.display = 'block';
-        if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
-        plotImage.style.display = 'block'; // Show the plot image
-        loadMoreButton.style.display = 'inline-block'; // Show the load more button
-      } else {
-        // User is not logged in, hide certain elements
-        plotImage.style.display = 'none';
-        loadMoreButton.style.display = 'none';
-      }
-    
-      const logoutLink = document.getElementById('logout');
-      if (logoutLink) {
-        logoutLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          localStorage.removeItem('username'); // Clear user session
-          if (profileTab) profileTab.style.display = 'block';
-          if (logoutTab) logoutTab.style.display = 'none';
-          window.location.href = 'main_menu.html'; // Redirect to main menu after logout
-        });
-      }
-    });
-  </script>
+
 </head>
 <body>
   <header>
@@ -240,5 +208,8 @@
           <a>2024 CyberSentry. All rights reserved.</a>
       </small>
   </footer>
+
+
+
 </body>
 </html>

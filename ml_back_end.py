@@ -19,7 +19,9 @@ pd.set_option('display.max_colwidth', None)
 
 #db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
 
-db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
+#db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
+
+db_path = 'C:/Users/diama/SQLiteStudio/CyberSentryDB0.db'
 
 conn = sql.connect(db_path)
 
