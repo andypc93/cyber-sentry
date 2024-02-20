@@ -4,8 +4,7 @@ import pandas as pd
 import sqlite3 as sql
 import matplotlib.pyplot as plt
 from joblib import load
-from sklearn.discriminant_analysis import StandardScaler
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import accuracy_score
 import random
 
@@ -186,10 +185,14 @@ y_test_label = label_encoder.transform(y_test)
 
 numerical_columns = x_test.select_dtypes(include=['number']).columns
 
-
-def scale_data_with_training(X_train, X_test, numerical_columns):
-
+def initialize_scalar():
+    # Initialize and configure components here
     scaler = StandardScaler()
+    # Any other initializations
+    return scaler
+
+def scale_data_with_training(X_train, X_test, numerical_columns,scaler):
+
     
     # Fit the scaler on the numerical columns of the training data and transform them
     X_train_numerical_scaled = scaler.fit_transform(X_train[numerical_columns])
@@ -213,7 +216,7 @@ def scale_data_with_training(X_train, X_test, numerical_columns):
 
 #===================================================
 
-X_train_scaled, x_test_scaled = scale_data_with_training(X_train, x_test, numerical_columns)
+X_train_scaled, x_test_scaled = scale_data_with_training(X_train, x_test, numerical_columns, initialize_scalar())
 
 #===================================================
 
@@ -287,19 +290,21 @@ weights = [0.4, 0.2, 0.2, 0.1, 0.1]  # Adjust these values as needed
 # Assuming attacks_df is your DataFrame containing the data
 attack_df_with_ip = assign_ip_addresses(attacks_df, 'ip_addresses', generate_ip_addresses(), weights)
 
-def analyze_data(df):
+def analyze_data():
     # Group by IP address, protocol type, flag, and service and count occurrences
-    analysis_df = df.groupby(['ip_addresses', 'protocol_type', 'flag', 'service']).size().reset_index(name='count')
+    analysis_df = attack_df_with_ip.groupby(['ip_addresses', 'protocol_type', 'flag', 'service']).size().reset_index(name='count')
     return analysis_df
 
-analyzed_df = analyze_data(attack_df_with_ip)
+#print(analyzed_df)
+#============================================
 
-print(analyzed_df)
+def analysis_df_to_html():
+    # Write the HTML data to a file
+    with open('templates/analysis_report.html', 'w') as file:
+        file.write(analyze_data().to_html())
 
-# Assuming get_attacks_df() is your function to retrieve the DataFrame
-def get_attacks_df():
-    df = analyzed_df
-    return df
+    return analyze_data().to_html()
+
 #===============================================
 
 # Define colors for each plot
@@ -311,7 +316,6 @@ colors_flag = ['purple', 'pink', 'lightblue']
 plt.figure(figsize=(40, 20))
 attacks_df["protocol_type"].value_counts().plot(kind='bar', label='protocol type', color=colors_protocol_type)
 plt.xlabel('Protocol Type', fontsize=40)
-plt.title('Protocol Type Counts', fontsize=40)
 plt.xticks(rotation=45, fontsize=50)
 plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
@@ -322,7 +326,6 @@ plt.close()
 plt.figure(figsize=(40, 20))
 attacks_df['service'].value_counts().head(10).plot(kind='bar', color=colors_service)
 plt.xlabel('Service', fontsize=40)
-plt.title('All Services', fontsize=40)
 plt.xticks(rotation=45, fontsize=50)
 plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
@@ -333,7 +336,6 @@ plt.close()
 plt.figure(figsize=(40, 20))
 attacks_df["flag"].value_counts().plot(kind='bar', color=colors_flag)
 plt.xlabel('Flag', fontsize=40)
-plt.title('Flag Counts', fontsize=40)
 plt.xticks(rotation=45, fontsize=50)
 plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
@@ -349,7 +351,6 @@ plt.figure(figsize=(40, 20))
 ip_address_counts.head(10).plot(kind='bar', color=['blue', 'green', 'red', 'cyan', 'magenta'])
 plt.xlabel('IP Address', fontsize=40)
 plt.ylabel('Count', fontsize=40)  # Assuming you want to label the y-axis as well
-plt.title('All IP Addresses', fontsize=40)
 plt.xticks(rotation=45, fontsize=50)  # Rotate x-axis labels to 45 degrees and increase font size
 plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
