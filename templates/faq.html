@@ -131,8 +131,8 @@
                 </div>
               </li>
                <!-- New item for user profile -->
-               <li id="profileTab"><a href="login_page.html"><i class="fas fa-user"></i> Your Profile</a></li>
-               <li id="logoutTab" style="display: none;"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>               
+               <li id="profileTab"><a href="{{ url_for('login_page') }}"><i class="fas fa-user"></i> Login</a></li>
+               <li id="logoutTab"><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>               
             </ul>
           </nav>        
         
@@ -281,7 +281,7 @@
                 <a>2024 CyberSentry. All rights reserved.</a>
           </small>
         </footer>
-        <script>
+        <!-- <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const username = localStorage.getItem('username');
                 if (username) {
@@ -291,35 +291,39 @@
                     }
                 }
             });
-            </script>
+            </script> -->
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-    const username = localStorage.getItem('username');
-    const profileTab = document.getElementById('profileTab');
-    const logoutTab = document.getElementById('logoutTab');
+                    const username = localStorage.getItem('username');
+                    const isLoggedIn = localStorage.getItem('isLoggedIn');
+                    const profileTab = document.getElementById('profileTab');
+                    const logoutTab = document.getElementById('logoutTab');
+                    const loggedInItems = document.getElementById('loggedInItems');
+                    const loggedOutItems = document.getElementById('loggedOutItems');
 
-    if (username) {
-        // User is logged in, show Logout option
-        if (profileTab) profileTab.style.display = 'none';
-        if (logoutTab) logoutTab.style.display = 'block';
-        
-        // Optionally, update profile link to show username
-        if (profileTab) profileTab.querySelector('a').innerHTML = `<i class="fas fa-user"></i> ${username}`;
-    } else {
-        // No user logged in, show "Your Profile"
-        if (profileTab) profileTab.style.display = 'block';
-        if (logoutTab) logoutTab.style.display = 'none';
-    }
+                    if (isLoggedIn == 'true') {
+                        // User is logged in, hide login button and show logout button
+                        if (loggedInItems) loggedInItems.style.display = 'block';
+                        if (loggedOutItems) loggedOutItems.style.display = 'none';
+                        if (profileTab) profileTab.style.display = 'none';
+                        if (logoutTab) logoutTab.style.display = 'block';
+                    } else {
+                        // User is not logged in, show login button and hide logout button
+                        if (loggedInItems) loggedInItems.style.display = 'none';
+                        if (loggedOutItems) loggedOutItems.style.display = 'block';
+                        if (profileTab) profileTab.style.display = 'block';
+                        if (logoutTab) logoutTab.style.display = 'none';
+                    }
 
-    const logoutLink = document.getElementById('logout');
-    if (logoutLink) {
-        logoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            localStorage.removeItem('username'); // Clear user session
-            // Update UI immediately after logout
-            if (profileTab) profileTab.style.display = 'block';
-            if (logoutTab) logoutTab.style.display = 'none';
-            window.location.href = 'login_page.html'; // Redirect to login page
+                    const logoutLink = document.getElementById('logout');
+                    if (logoutLink) {
+                        logoutLink.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            localStorage.removeItem('username'); // Clear user session
+                            localStorage.setItem('isLoggedIn', 'false'); //Clear login status
+                            if (loggedInItems) loggedInItems.style.display = 'none';
+                            if (loggedOutItems) loggedOutItems.style.display = 'block';
+                            window.location.href = '/'; // Redirect to the main page after logout
         });
     }
 });
