@@ -9,65 +9,58 @@ from sklearn.metrics import accuracy_score
 import random
 from sklearn.ensemble import RandomForestClassifier  # or the specific classifier you are using
 
-# Set the display options
-pd.set_option('display.max_rows', None)
-pd.set_option('display.max_columns', None)
-pd.set_option('display.width', None)
-pd.set_option('display.max_colwidth', None)
-
 #===================================================
 
+# The following lines are paths to the database file. Only one should be uncommented.
 
-def get_model_path():
-    import sys
-    import os
-    # Check if we're running as a PyInstaller bundle
-    if getattr(sys, 'frozen', False):
-        # If bundled, the PyInstaller bootloader extends the sys module by a flag frozen=True
-        # and sets the app path into variable _MEIPASS'.
-        application_path = sys._MEIPASS
-    else:
-        application_path = os.path.dirname(os.path.abspath(__file__))
-        
-    return os.path.join(application_path, 'rf_model.joblib')
-
-# Use the get_model_path function to find the path to 'rf_model.joblib'
-model_path = get_model_path()
-rf_model = load(model_path)
-
-#===================================================
-#db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
-
+# db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
 db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
+# db_path = 'C:/Users/diama/SQLiteStudio/CyberSentryDB0.db'
 
-#db_path = 'C:/Users/diama/SQLiteStudio/CyberSentryDB0.db'
-
+# Create a connection to the SQLite database specified by db_path.
 conn = sql.connect(db_path)
 
+# Create a cursor object. This object is used to execute SQL commands.
 cursor = conn.cursor()
 
+# Execute a SQL query to select all records from the 'testing_data' table.
+# The result is stored in a pandas DataFrame.
 df_test = pd.read_sql_query("SELECT * FROM testing_data", conn)
+# Execute a SQL query to select all records from the 'training_data' table.
+# The result is stored in a pandas DataFrame.
 df_train = pd.read_sql_query("SELECT * FROM training_data", conn)
 
+# Close the cursor. After this point, the cursor can no longer be used.
 cursor.close()
 
+# Close the connection to the database.
 conn.close()
-
 #===================================================
 
+# Import the os module. This module provides a way of using operating system dependent functionality.
 import os
+
+# Print the current working directory. This is the directory from which the script is being run.
 print("Current Working Directory:", os.getcwd())
 
+# Define the path to the model file. This path may need to be adjusted depending on where the file is located.
 model_path = 'rf_model.joblib'  # Adjust as necessary
+
+# Check if the model file exists at the specified path.
 if os.path.exists(model_path):
+    # If the file exists, print a message indicating that the file was found.
     print(f"File found: {model_path}")
 else:
+    # If the file does not exist, print a message indicating that the file was not found.
     print(f"File not found: {model_path}")
 
 #===================================================
 
+# Define the path to the model file. This path may need to be adjusted depending on where the file is located.
 model_path = "rf_model.joblib"
 
+# Load the model from the file specified by model_path. The loaded model is stored in rf_model.
+# The load function is typically from joblib or pickle libraries, which are used for serializing and deserializing Python objects.
 rf_model = load(model_path)
 
 #===================================================
@@ -376,3 +369,7 @@ plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
 plt.savefig("static/images/ip_address_counts.png")
 plt.close()
+
+
+
+
