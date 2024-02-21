@@ -7,6 +7,7 @@ from joblib import load
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import accuracy_score
 import random
+from sklearn.ensemble import RandomForestClassifier  # or the specific classifier you are using
 
 # Set the display options
 pd.set_option('display.max_rows', None)
@@ -16,6 +17,25 @@ pd.set_option('display.max_colwidth', None)
 
 #===================================================
 
+
+def get_model_path():
+    import sys
+    import os
+    # Check if we're running as a PyInstaller bundle
+    if getattr(sys, 'frozen', False):
+        # If bundled, the PyInstaller bootloader extends the sys module by a flag frozen=True
+        # and sets the app path into variable _MEIPASS'.
+        application_path = sys._MEIPASS
+    else:
+        application_path = os.path.dirname(os.path.abspath(__file__))
+        
+    return os.path.join(application_path, 'rf_model.joblib')
+
+# Use the get_model_path function to find the path to 'rf_model.joblib'
+model_path = get_model_path()
+rf_model = load(model_path)
+
+#===================================================
 #db_path = 'C:/Users/rober/SQLite/CyberSentryDB.db'
 
 db_path = 'C:/Users/andre/SQLite/CyberSentryDB.db'
