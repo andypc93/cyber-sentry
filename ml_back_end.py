@@ -335,7 +335,7 @@ plt.close()
 # Plot for flag with colors
 plt.figure(figsize=(40, 20))
 attacks_df["flag"].value_counts().plot(kind='bar', color=colors_flag)
-plt.xlabel('Flag', fontsize=40)
+plt.xlabel('Flag', fontsize=50)
 plt.xticks(rotation=45, fontsize=50)
 plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()
@@ -350,7 +350,7 @@ ip_address_counts = attack_df_with_ip['ip_addresses'].value_counts()
 plt.figure(figsize=(40, 20))
 ip_address_counts.head(10).plot(kind='bar', color=['blue', 'green', 'red', 'cyan', 'magenta'])
 plt.xlabel('IP Address', fontsize=40)
-plt.ylabel('Count', fontsize=40)  # Assuming you want to label the y-axis as well
+plt.ylabel('Count', fontsize=50)  # Assuming you want to label the y-axis as well
 plt.xticks(rotation=45, fontsize=50)  # Rotate x-axis labels to 45 degrees and increase font size
 plt.yticks(fontsize=50)  # Increase font size of y-axis labels
 plt.tight_layout()

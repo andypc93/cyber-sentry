@@ -7,6 +7,27 @@ from apscheduler.schedulers.background import BackgroundScheduler  # Scheduler f
 import atexit  # Module for registering functions to be called when the program exits
 from sklearn.preprocessing import StandardScaler
 import random
+import matplotlib
+matplotlib.use('Agg')  # Use the Agg backend which does not require a GUI
+import matplotlib.pyplot as plt
+
+import os
+import sys
+
+# Check if we're running as a PyInstaller bundle
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    bundle_dir = sys._MEIPASS
+else:
+    bundle_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Correct path to rf_model.joblib
+joblib_file_path = os.path.join(bundle_dir, 'rf_model.joblib')
+
+# Now you can load it with joblib
+from joblib import load
+rf_model = load(joblib_file_path)
+
+
 
 # Create a Flask web server from the Flask class
 app = Flask(__name__)
@@ -65,4 +86,4 @@ def shutdown():
 
 # Run the Flask app (only if the script is the main running script)
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(host = '0.0.0.0', debug=True)  # Run the app on the local server
