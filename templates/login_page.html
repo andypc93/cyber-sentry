@@ -1,130 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/pico.min.css') }}"
+    />
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #131418;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #131418;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
-        .login-container {
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-        }
+      .login-container {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+      }
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
 
-        label {
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+      label {
+        color: #333;
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
 
-        button, .back-button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none; /* Remove underline from links styled as buttons */
-            display: inline-block; /* Align with text inputs */
-            width: auto; /* Auto width according to content */
-            margin: 0; /* Reset margin */
-        }
+      button,
+      .back-button {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none; /* Remove underline from links styled as buttons */
+        display: inline-block; /* Align with text inputs */
+        width: auto; /* Auto width according to content */
+        margin: 0; /* Reset margin */
+      }
 
-        button:hover, .back-button:hover {
-            background-color: #2980b9;
-        }
+      button:hover,
+      .back-button:hover {
+        background-color: #2980b9;
+      }
 
-        .back-button {
-            background-color: #555; /* A neutral, less prominent color */
-            margin-top: 20px; /* Space above the back button */
-        }
+      .back-button {
+        background-color: #555; /* A neutral, less prominent color */
+        margin-top: 20px; /* Space above the back button */
+      }
 
-        p {
-            color: red;
-            margin-top: 20px;
-        }
+      p {
+        color: red;
+        margin-top: 20px;
+      }
 
-        img {
-            margin-bottom: 10px;
-        }
+      img {
+        margin-bottom: 10px;
+      }
     </style>
-    <head>
-        <title>Main Menu - CyberSentry</title>
-        <!-- Include any necessary CSS or external libraries -->
-    </head>
-  
-        <!-- Include your JavaScript for handling login -->
-      <script>
-        function handleLogin(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-
-            if(username === 'user' && password === 'password') {
-                // Redirect to main menu page after successful login
-                localStorage.setItem('username', 'user');
-                localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = "{{ url_for('menu') }}";
-            } else {
-                alert('Incorrect username or password!');
-            }
-        }
-
-        // Attach the handleLogin function to the form submission event
-        document.getElementById('loginForm').addEventListener('submit', handleLogin);
-    </script>
-    </body>
-</script>
-<body>
+  </head>
+  <body>
     <div class="login-container">
-        <img src="https://i.postimg.cc/WbmdM5Mj/Picture1.png" alt="CyberSentry Logo" style="width: 100px; height: 100px;">
-        <h1>CyberSentry</h1>
+      <img
+        src="https://i.postimg.cc/WbmdM5Mj/Picture1.png"
+        alt="CyberSentry Logo"
+        style="width: 100px; height: 100px"
+      />
+      <h1>CyberSentry</h1>
 
-        <form onsubmit="handleLogin(event)">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
 
-            <button type="submit">Login</button>
-        </form>
+        <button type="submit">Login</button>
+      </form>
 
-        <!-- Link styled as a button for going back to the main menu -->
-        <li><a href="{{ url_for('menu') }}" class="back-button">Back to Main Menu</a>
+      <p id="errorMessage" style="color: red; display: none"></p>
 
+      <!-- Link styled as a button for going back to the main menu -->
+      <a href="{{ url_for('menu') }}" class="back-button">Main Menu</a>
     </div>
-</body>
+
+    <!-- Include your JavaScript for handling login -->
+    <script>
+      function handleLogin(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var errorMessage = document.getElementById("errorMessage");
+
+        if (username === "user" && password === "password") {
+          // Redirect to main menu page after successful login
+          localStorage.setItem("username", "user");
+          localStorage.setItem("isLoggedIn", "true");
+          window.location.href = "{{ url_for('menu') }}";
+        } else {
+          // Display error message
+          errorMessage.textContent = "Incorrect username or password!";
+          errorMessage.style.display = "block"; // Make the error message visible
+        }
+      }
+      // Attach the handleLogin function to the form submission event
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", handleLogin);
+    </script>
+  </body>
 </html>

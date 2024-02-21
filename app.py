@@ -25,10 +25,7 @@ def run_script():
 # Create a scheduler
 scheduler = BackgroundScheduler()
 
-# Run the script immediately when the app starts
-run_script()
-
-# Schedule the script to run every minute
+# Add the script to run every 10 minutes
 scheduler.add_job(run_script, 'interval', minutes=1)
 
 # Start the scheduler
@@ -37,9 +34,8 @@ scheduler.start()
 # Define the route for the main page
 @app.route('/')
 def menu():
-    # Convert the DataFrame to HTML using the imported function
-    df_html = analysis_df_to_html()
     # Render the main_menu.html template and pass the HTML string to it
+    df_html = analysis_df_to_html()
     return render_template('main_menu.html', table=df_html)
 
 # Define the route for the about page
